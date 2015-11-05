@@ -89,26 +89,4 @@ class ListTableViewCell: UITableViewCell {
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        self.nameLabel?.text = nil
-        self.pictureImageView?.image = nil
-        self.ratingLabel?.text = nil
-        self.request?.cancel()
-    }
-
-    func configureCellFromListModel(listModel: ListModel) {
-        
-        self.nameLabel?.text = listModel.imageName
-        self.ratingLabel?.text = String(listModel.rating!)
-        
-        self.request?.cancel()
-        self.request = Alamofire.request(.GET, listModel.imageURL!).responseImage { response in
-            if let image = response.result.value {
-                self.pictureImageView?.image = image
-            }
-        }
-    }
 }

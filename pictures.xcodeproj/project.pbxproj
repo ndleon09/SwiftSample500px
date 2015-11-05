@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3DDC3BA59EC17F3959915B82 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B07B2A883CA000661BEBE43 /* Pods.framework */; };
 		52262EC31BEAA75B00BC8A16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EC21BEAA75B00BC8A16 /* AppDelegate.swift */; };
-		52262EC51BEAA75B00BC8A16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EC41BEAA75B00BC8A16 /* ViewController.swift */; };
 		52262ECA1BEAA75B00BC8A16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52262EC91BEAA75B00BC8A16 /* Assets.xcassets */; };
 		52262ECD1BEAA75B00BC8A16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52262ECB1BEAA75B00BC8A16 /* LaunchScreen.storyboard */; };
 		52262ED51BEAA7E700BC8A16 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262ED41BEAA7E700BC8A16 /* AppDependencies.swift */; };
@@ -40,7 +39,6 @@
 		41054A2DC78EBBC38AE07018 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		52262EBF1BEAA75B00BC8A16 /* pictures.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pictures.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52262EC21BEAA75B00BC8A16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		52262EC41BEAA75B00BC8A16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		52262EC91BEAA75B00BC8A16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52262ECC1BEAA75B00BC8A16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52262ECE1BEAA75B00BC8A16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 				52262ED61BEAA90C00BC8A16 /* Modules */,
 				52262EC21BEAA75B00BC8A16 /* AppDelegate.swift */,
 				52262ED41BEAA7E700BC8A16 /* AppDependencies.swift */,
-				52262EC41BEAA75B00BC8A16 /* ViewController.swift */,
 				52262EC91BEAA75B00BC8A16 /* Assets.xcassets */,
 				52262ECB1BEAA75B00BC8A16 /* LaunchScreen.storyboard */,
 				52262ECE1BEAA75B00BC8A16 /* Info.plist */,
@@ -467,7 +464,6 @@
 				52262EF01BEAC00800BC8A16 /* CoreDataStore.swift in Sources */,
 				522E8E881BEBB34F0018ACE9 /* DetailViewInterface.swift in Sources */,
 				52262ED51BEAA7E700BC8A16 /* AppDependencies.swift in Sources */,
-				52262EC51BEAA75B00BC8A16 /* ViewController.swift in Sources */,
 				522E8E841BEBB1950018ACE9 /* DetailViewController.swift in Sources */,
 				522E8E861BEBB1A90018ACE9 /* DetailPresenter.swift in Sources */,
 				522E8E8C1BEBC03D0018ACE9 /* DetailInteractorInterfaces.swift in Sources */,
