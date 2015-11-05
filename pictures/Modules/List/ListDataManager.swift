@@ -70,10 +70,10 @@ class ListDataManager: NSObject {
                     if let longitude = picture.longitude {
                         pictureDataModel?.longitude = longitude
                     }
-                    
-                    self.coreDataStore?.save()
                 }
             })
         }
+        
+        self.coreDataStore?.save()
     }
 }
