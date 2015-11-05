@@ -32,6 +32,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.tableView?.dataSource = self
         self.tableView?.delegate = self
         self.tableView?.backgroundColor = UIColor.whiteColor()
+        self.tableView?.separatorStyle = UITableViewCellSeparatorStyle.None
         self.tableView?.addSubview(self.refreshControl!)
         self.tableView?.registerClass(ListTableViewCell.self, forCellReuseIdentifier: PhotoCellIdentifier)
         self.view.addSubview(self.tableView!)
@@ -89,7 +90,11 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return cell
     }
     
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 320.0
+    }
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 140.0
+        return 320.0
     }
 }

@@ -56,7 +56,7 @@ class NetworkingService: NSObject {
     
     func findMostPopularPictures(completion: FindMostPopularPicturesCompletionBlock) {
         
-        let parameters : [String:String] = ["feature": "popular", "sort": "rating", "sort_direction": "desc", "image_size": "3", "consumer_key": self.consumerKey]
+        let parameters : [String:String] = ["feature": "popular", "sort": "rating", "sort_direction": "desc", "image_size": "440", "consumer_key": self.consumerKey]
         let url = NSURL(string: "\(self.baseURL)/photos?\(parameters.stringFromHttpParameters())")
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
