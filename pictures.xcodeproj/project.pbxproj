@@ -22,6 +22,8 @@
 		52262EF01BEAC00800BC8A16 /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EEF1BEAC00800BC8A16 /* CoreDataStore.swift */; };
 		52262EF61BEAC2C100BC8A16 /* ListDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EF51BEAC2C100BC8A16 /* ListDataManager.swift */; };
 		52262EF91BEAC61300BC8A16 /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EF81BEAC61300BC8A16 /* NetworkingService.swift */; };
+		52262EFB1BEBEF8B00BC8A16 /* DetailDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EFA1BEBEF8B00BC8A16 /* DetailDataManager.swift */; };
+		52262EFD1BEBF1B400BC8A16 /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EFC1BEBF1B400BC8A16 /* DetailModel.swift */; };
 		522E8E731BEB59440018ACE9 /* PictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522E8E721BEB59440018ACE9 /* PictureModel.swift */; };
 		522E8E751BEB61C90018ACE9 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522E8E741BEB61C90018ACE9 /* ListModel.swift */; };
 		522E8E771BEB707A0018ACE9 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522E8E761BEB707A0018ACE9 /* ListTableViewCell.swift */; };
@@ -53,6 +55,8 @@
 		52262EEF1BEAC00800BC8A16 /* CoreDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
 		52262EF51BEAC2C100BC8A16 /* ListDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListDataManager.swift; path = Modules/List/ListDataManager.swift; sourceTree = "<group>"; };
 		52262EF81BEAC61300BC8A16 /* NetworkingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
+		52262EFA1BEBEF8B00BC8A16 /* DetailDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailDataManager.swift; path = Modules/Detail/DetailDataManager.swift; sourceTree = "<group>"; };
+		52262EFC1BEBF1B400BC8A16 /* DetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailModel.swift; path = Modules/Detail/DetailModel.swift; sourceTree = "<group>"; };
 		522E8E721BEB59440018ACE9 /* PictureModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PictureModel.swift; path = Modules/List/PictureModel.swift; sourceTree = "<group>"; };
 		522E8E741BEB61C90018ACE9 /* ListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListModel.swift; path = Modules/List/ListModel.swift; sourceTree = "<group>"; };
 		522E8E761BEB707A0018ACE9 /* ListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListTableViewCell.swift; path = Modules/List/ListTableViewCell.swift; sourceTree = "<group>"; };
@@ -250,7 +254,6 @@
 		522E8E791BEBAFAC0018ACE9 /* Application Logic */ = {
 			isa = PBXGroup;
 			children = (
-				522E8E801BEBAFEB0018ACE9 /* Model */,
 				522E8E7F1BEBAFE50018ACE9 /* Manager */,
 				522E8E7E1BEBAFDE0018ACE9 /* Interactor */,
 			);
@@ -288,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				522E8E851BEBB1A90018ACE9 /* DetailPresenter.swift */,
+				52262EFC1BEBF1B400BC8A16 /* DetailModel.swift */,
 			);
 			name = Presenter;
 			sourceTree = "<group>";
@@ -304,15 +308,9 @@
 		522E8E7F1BEBAFE50018ACE9 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				52262EFA1BEBEF8B00BC8A16 /* DetailDataManager.swift */,
 			);
 			name = Manager;
-			sourceTree = "<group>";
-		};
-		522E8E801BEBAFEB0018ACE9 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		83284385F9C140BC78771B92 /* Frameworks */ = {
@@ -466,8 +464,10 @@
 				52262ED51BEAA7E700BC8A16 /* AppDependencies.swift in Sources */,
 				522E8E841BEBB1950018ACE9 /* DetailViewController.swift in Sources */,
 				522E8E861BEBB1A90018ACE9 /* DetailPresenter.swift in Sources */,
+				52262EFB1BEBEF8B00BC8A16 /* DetailDataManager.swift in Sources */,
 				522E8E8C1BEBC03D0018ACE9 /* DetailInteractorInterfaces.swift in Sources */,
 				52262EDF1BEAAAB900BC8A16 /* ListViewController.swift in Sources */,
+				52262EFD1BEBF1B400BC8A16 /* DetailModel.swift in Sources */,
 				52262EED1BEAB18800BC8A16 /* RootWireFrame.swift in Sources */,
 				522E8E751BEB61C90018ACE9 /* ListModel.swift in Sources */,
 				52262EE21BEAAB1400BC8A16 /* ListPresenter.swift in Sources */,

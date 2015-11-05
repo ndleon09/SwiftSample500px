@@ -8,13 +8,22 @@
 
 import UIKit
 
-class DetailPresenter: NSObject {
+class DetailPresenter: NSObject, DetailInteractorOutput {
 
     var detailWireFrame : DetailWireFrame?
     var detailInteractor : DetailInteractor?
     var detailView : DetailViewInterface?
     
     func loadDetailFromIdentifier(identifier: Double) {
-        detailView?.showLoadingIndicator()
+        detailInteractor?.findDetailPhoto(identifier)
+    }
+    
+    func foundDetailPhoto(detailModel: DetailModel?) {
+        if let model = detailModel {
+            detailView?.showDetailPicture(model)
+        }
+        else {
+            detailView?.showNotFoundMessage()
+        }
     }
 }

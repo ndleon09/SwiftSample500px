@@ -11,7 +11,7 @@ import UIKit
 class DetailViewController: UIViewController, DetailViewInterface {
 
     var detailPresenter : DetailPresenter?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,7 +19,13 @@ class DetailViewController: UIViewController, DetailViewInterface {
         self.view.backgroundColor = UIColor.whiteColor()
     }
     
-    func showLoadingIndicator() {
-        
+    func showNotFoundMessage() {
+        let alertController = UIAlertController(title: "Error", message: "Picture not found", preferredStyle: .Alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func showDetailPicture(detailModel: DetailModel) {
+        self.title = detailModel.name
     }
 }

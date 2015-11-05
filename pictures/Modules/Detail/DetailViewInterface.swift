@@ -10,5 +10,6 @@ import Foundation
 
 protocol DetailViewInterface {
     
-    func showLoadingIndicator()
+    func showNotFoundMessage()
+    func showDetailPicture(detailModel: DetailModel)
 }

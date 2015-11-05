@@ -13,5 +13,5 @@ protocol DetailInteractorInput {
 }
 
 protocol DetailInteractorOutput {
-    func foundDetailPhoto()
+    func foundDetailPhoto(detailModel: DetailModel?)
 }

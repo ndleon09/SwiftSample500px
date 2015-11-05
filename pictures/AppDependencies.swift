@@ -31,7 +31,8 @@ class AppDependencies {
         let listInteractor = ListInteractor(dataManager: listDataManager)
         
         let detailWireFrame = DetailWireFrame()
-        let datailPresenter = DetailPresenter()
+        let detailPresenter = DetailPresenter()
+        let detailDataManager = DetailDataManager()
         let detailInteractor = DetailInteractor()
         
         listInteractor.output = listPresenter
@@ -45,7 +46,10 @@ class AppDependencies {
         listDataManager.networkService = networkService
         listDataManager.coreDataStore = coreDataStore
         
-        detailWireFrame.detailPresenter = datailPresenter
-        datailPresenter.detailInteractor = detailInteractor
+        detailWireFrame.detailPresenter = detailPresenter
+        detailInteractor.detailPresenter = detailPresenter
+        detailInteractor.detailDataManager = detailDataManager
+        detailDataManager.coreDataStore = coreDataStore
+        detailPresenter.detailInteractor = detailInteractor
     }
 }
