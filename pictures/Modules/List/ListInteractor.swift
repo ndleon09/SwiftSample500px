@@ -1,0 +1,25 @@
+//
+//  ListInteractor.swift
+//  pictures
+//
+//  Created by Nelson Dominguez on 04/11/15.
+//  Copyright © 2015 Nelson Dominguez. All rights reserved.
+//
+
+import Foundation
+
+class ListInteractor: NSObject, ListInteractorInput {
+
+    let dataManager : ListDataManager
+    var output : ListInteractorOutput?
+    
+    init(dataManager: ListDataManager) {
+        self.dataManager = dataManager
+    }
+    
+    func findMostPopularPhotos() {
+        self.dataManager.findMostPopularPictures { (photos: NSArray?) -> Void in
+            self.output?.foundMostPopularPhotos(photos)
+        }
+    }
+}
