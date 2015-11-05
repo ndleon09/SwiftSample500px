@@ -13,7 +13,7 @@ protocol ListViewInterface {
     func showLoadingIndicator()
     func hideLoadingIndicator()
     func showNoContentMessage()
-    func showMostPopularPhotos(photos: NSArray?)
+    func showMostPopularPhotos(photos: [ListModel]?)
     func reloadPhotos()
     
 }

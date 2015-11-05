@@ -19,7 +19,7 @@ class ListPresenter: NSObject, ListInteractorOutput {
         listInteractor?.findMostPopularPhotos()
     }
     
-    func foundMostPopularPhotos(mostPopularPhotos: NSArray?) {
+    func foundMostPopularPhotos(mostPopularPhotos: [ListModel]?) {
         
         userInterface?.hideLoadingIndicator()
         

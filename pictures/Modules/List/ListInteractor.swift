@@ -18,8 +18,18 @@ class ListInteractor: NSObject, ListInteractorInput {
     }
     
     func findMostPopularPhotos() {
-        self.dataManager.findMostPopularPictures { (photos: NSArray?) -> Void in
-            self.output?.foundMostPopularPhotos(photos)
+        self.dataManager.findMostPopularPictures { (photos: [PictureModel]?) -> Void in
+            let listModels = self.listModelsFromPictureModels(photos)
+            self.output?.foundMostPopularPhotos(listModels)
         }
+    }
+    
+    func listModelsFromPictureModels(pictures: [PictureModel]?) -> [ListModel]? {
+        var listModels : [ListModel] = []
+        for pictureModel in pictures! {
+            let listModel = ListModel(image: pictureModel.image, name: pictureModel.name)
+            listModels.append(listModel)
+        }
+        return listModels
     }
 }

@@ -8,10 +8,12 @@
 
 import UIKit
 
+let PhotoCellIdentifier : String = "PhotoCell"
+
 class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ListViewInterface {
 
     var listPresenter : ListPresenter?
-    var mostPopularPhotos : NSArray?
+    var mostPopularPhotos : [ListModel]?
     var tableView : UITableView?
     var refreshControl : UIRefreshControl?
     
@@ -25,8 +27,11 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.refreshControl?.addTarget(self, action: "loadData", forControlEvents: .ValueChanged)
         
         self.tableView = UITableView(frame: self.view.frame, style: UITableViewStyle.Plain)
+        self.tableView?.dataSource = self
+        self.tableView?.delegate = self
         self.tableView?.backgroundColor = UIColor.whiteColor()
         self.tableView?.addSubview(self.refreshControl!)
+        self.tableView?.registerClass(ListTableViewCell.self, forCellReuseIdentifier: PhotoCellIdentifier)
         self.view.addSubview(self.tableView!)
         
         self.loadData()
@@ -50,7 +55,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.presentViewController(alertViewController, animated: true, completion: nil)
     }
     
-    func showMostPopularPhotos(photos: NSArray?) {
+    func showMostPopularPhotos(photos: [ListModel]?) {
         mostPopularPhotos = photos
         reloadPhotos()
     }
@@ -73,7 +78,8 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell") as UITableViewCell?
-        return cell!
+        let cell = tableView.dequeueReusableCellWithIdentifier(PhotoCellIdentifier) as! ListTableViewCell
+        cell.configureCellFromListModel(self.mostPopularPhotos![indexPath.row])
+        return cell
     }
 }

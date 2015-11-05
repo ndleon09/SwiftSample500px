@@ -13,5 +13,5 @@ protocol ListInteractorInput {
 }
 
 protocol ListInteractorOutput {
-    func foundMostPopularPhotos(mostPopularPhotos : NSArray?)
+    func foundMostPopularPhotos(mostPopularPhotos : [ListModel]?)
 }

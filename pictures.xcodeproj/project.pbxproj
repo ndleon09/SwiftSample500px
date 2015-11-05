@@ -22,6 +22,9 @@
 		52262EF01BEAC00800BC8A16 /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EEF1BEAC00800BC8A16 /* CoreDataStore.swift */; };
 		52262EF61BEAC2C100BC8A16 /* ListDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EF51BEAC2C100BC8A16 /* ListDataManager.swift */; };
 		52262EF91BEAC61300BC8A16 /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EF81BEAC61300BC8A16 /* NetworkingService.swift */; };
+		522E8E731BEB59440018ACE9 /* PictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522E8E721BEB59440018ACE9 /* PictureModel.swift */; };
+		522E8E751BEB61C90018ACE9 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522E8E741BEB61C90018ACE9 /* ListModel.swift */; };
+		522E8E771BEB707A0018ACE9 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522E8E761BEB707A0018ACE9 /* ListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,9 @@
 		52262EEF1BEAC00800BC8A16 /* CoreDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
 		52262EF51BEAC2C100BC8A16 /* ListDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListDataManager.swift; path = Modules/List/ListDataManager.swift; sourceTree = "<group>"; };
 		52262EF81BEAC61300BC8A16 /* NetworkingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
+		522E8E721BEB59440018ACE9 /* PictureModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PictureModel.swift; path = Modules/List/PictureModel.swift; sourceTree = "<group>"; };
+		522E8E741BEB61C90018ACE9 /* ListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListModel.swift; path = Modules/List/ListModel.swift; sourceTree = "<group>"; };
+		522E8E761BEB707A0018ACE9 /* ListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListTableViewCell.swift; path = Modules/List/ListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,7 @@
 		52262ED81BEAA96D00BC8A16 /* Application Logic */ = {
 			isa = PBXGroup;
 			children = (
+				522E8E711BEB59290018ACE9 /* Model */,
 				52262EF41BEAC2A900BC8A16 /* Manager */,
 				52262EE51BEAAE9900BC8A16 /* Interactor */,
 			);
@@ -135,6 +142,7 @@
 			children = (
 				52262EDE1BEAAAB900BC8A16 /* ListViewController.swift */,
 				52262EE31BEAAD5E00BC8A16 /* ListViewInterface.swift */,
+				522E8E761BEB707A0018ACE9 /* ListTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -152,6 +160,7 @@
 			children = (
 				52262EE61BEAAEBB00BC8A16 /* ListInteractor.swift */,
 				52262EE81BEAAEE400BC8A16 /* ListInteractorInterfaces.swift */,
+				522E8E741BEB61C90018ACE9 /* ListModel.swift */,
 			);
 			name = Interactor;
 			sourceTree = "<group>";
@@ -196,6 +205,14 @@
 				52262EF81BEAC61300BC8A16 /* NetworkingService.swift */,
 			);
 			name = Service;
+			sourceTree = "<group>";
+		};
+		522E8E711BEB59290018ACE9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				522E8E721BEB59440018ACE9 /* PictureModel.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52262EDC1BEAAA0E00BC8A16 /* ListWireFrame.swift in Sources */,
+				522E8E771BEB707A0018ACE9 /* ListTableViewCell.swift in Sources */,
 				52262EF61BEAC2C100BC8A16 /* ListDataManager.swift in Sources */,
 				52262EE41BEAAD5E00BC8A16 /* ListViewInterface.swift in Sources */,
 				52262EE91BEAAEE400BC8A16 /* ListInteractorInterfaces.swift in Sources */,
@@ -277,7 +295,9 @@
 				52262EC51BEAA75B00BC8A16 /* ViewController.swift in Sources */,
 				52262EDF1BEAAAB900BC8A16 /* ListViewController.swift in Sources */,
 				52262EED1BEAB18800BC8A16 /* RootWireFrame.swift in Sources */,
+				522E8E751BEB61C90018ACE9 /* ListModel.swift in Sources */,
 				52262EE21BEAAB1400BC8A16 /* ListPresenter.swift in Sources */,
+				522E8E731BEB59440018ACE9 /* PictureModel.swift in Sources */,
 				52262EE71BEAAEBB00BC8A16 /* ListInteractor.swift in Sources */,
 				52262EF91BEAC61300BC8A16 /* NetworkingService.swift in Sources */,
 				52262EC31BEAA75B00BC8A16 /* AppDelegate.swift in Sources */,
@@ -422,6 +442,7 @@
 				52262ED31BEAA75B00BC8A16 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
