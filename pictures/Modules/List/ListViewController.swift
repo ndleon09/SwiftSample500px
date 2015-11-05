@@ -17,6 +17,8 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var tableView : UITableView?
     var refreshControl : UIRefreshControl?
     
+    // MARK: Life view cycle
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -41,6 +43,8 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         listPresenter?.updateView()
     }
     
+    // MARK: Implement ListViewInterface protocol
+    
     func showLoadingIndicator() {
         self.refreshControl?.beginRefreshing()
     }
@@ -64,6 +68,8 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView?.reloadData()
     }
     
+    // MARK: Tableview datasource and delegate
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         var numberOfSection = 1;
         if mostPopularPhotos?.count == nil {
@@ -81,5 +87,9 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCellWithIdentifier(PhotoCellIdentifier) as! ListTableViewCell
         cell.configureCellFromListModel(self.mostPopularPhotos![indexPath.row])
         return cell
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 140.0
     }
 }

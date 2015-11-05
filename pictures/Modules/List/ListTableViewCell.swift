@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
 
 class ListTableViewCell: UITableViewCell {
     
@@ -33,5 +35,10 @@ class ListTableViewCell: UITableViewCell {
 
     func configureCellFromListModel(listModel: ListModel) {
         self.nameLabel?.text = listModel.imageName
+        Alamofire.request(.GET, listModel.imageURL!).responseImage { response in
+            if let image = response.result.value {
+                self.pictureImageView?.image = image
+            }
+        }
     }
 }
