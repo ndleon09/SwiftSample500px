@@ -8,13 +8,15 @@
 
 import UIKit
 
-struct ListModel {
+class ListModel {
     
     let imageURL : NSURL?
     let imageName : String?
+    let rating : Double?
     
-    init(image: String?, name: String?) {
-        imageURL = NSURL(string: image!)
-        imageName = name
+    init(image: String?, name: String?, rating: Double?) {
+        self.imageURL = NSURL(string: image!)
+        self.imageName = name
+        self.rating = rating
     }
 }

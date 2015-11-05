@@ -158,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				52262EE11BEAAB1400BC8A16 /* ListPresenter.swift */,
+				522E8E741BEB61C90018ACE9 /* ListModel.swift */,
 			);
 			name = Presenter;
 			sourceTree = "<group>";
@@ -167,7 +168,6 @@
 			children = (
 				52262EE61BEAAEBB00BC8A16 /* ListInteractor.swift */,
 				52262EE81BEAAEE400BC8A16 /* ListInteractorInterfaces.swift */,
-				522E8E741BEB61C90018ACE9 /* ListModel.swift */,
 			);
 			name = Interactor;
 			sourceTree = "<group>";

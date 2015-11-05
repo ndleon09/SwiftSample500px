@@ -13,7 +13,9 @@ import AlamofireImage
 class ListTableViewCell: UITableViewCell {
     
     var pictureImageView : UIImageView?
+    var ratingLabel : UILabel?
     var nameLabel : UILabel?
+    
     var blurView : UIVisualEffectView?
     var request: Alamofire.Request?
     
@@ -26,6 +28,12 @@ class ListTableViewCell: UITableViewCell {
         self.pictureImageView?.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(self.pictureImageView!)
         
+        self.ratingLabel = UILabel(frame: CGRectZero)
+        self.ratingLabel?.translatesAutoresizingMaskIntoConstraints = false
+        self.ratingLabel?.font = UIFont.systemFontOfSize(12)
+        self.ratingLabel?.textColor = UIColor.whiteColor()
+        self.contentView.addSubview(self.ratingLabel!)
+        
         let blurEffect = UIBlurEffect(style: .Dark)
         self.blurView = UIVisualEffectView(effect: blurEffect)
         self.blurView?.translatesAutoresizingMaskIntoConstraints = false
@@ -35,6 +43,7 @@ class ListTableViewCell: UITableViewCell {
         self.nameLabel?.translatesAutoresizingMaskIntoConstraints = false
         self.nameLabel?.textColor = UIColor.whiteColor()
         self.nameLabel?.font = UIFont.systemFontOfSize(14.0)
+        self.nameLabel?.numberOfLines = 1
         self.blurView?.addSubview(self.nameLabel!)
     }
     
@@ -45,6 +54,9 @@ class ListTableViewCell: UITableViewCell {
         let pictureImageViewCenterY = NSLayoutConstraint(item: self.pictureImageView!, attribute: .CenterY, relatedBy: .Equal, toItem: self.contentView, attribute: .CenterY, multiplier: 1.0, constant: 0.0)
         let pictureImageViewWidth = NSLayoutConstraint(item: self.pictureImageView!, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 300.0)
         let pictureImageViewHeight = NSLayoutConstraint(item: self.pictureImageView!, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 300.0)
+        
+        let ratingLabelTop = NSLayoutConstraint(item: self.ratingLabel!, attribute: .Top, relatedBy: .Equal, toItem: self.pictureImageView!, attribute: .Top, multiplier: 1.0, constant: 8.0)
+        let ratingLabelTrailing = NSLayoutConstraint(item: self.ratingLabel!, attribute: .Trailing, relatedBy: .Equal, toItem: self.pictureImageView!, attribute: .Trailing, multiplier: 1.0, constant: -8.0)
         
         let blurViewLeading = NSLayoutConstraint(item: self.blurView!, attribute: .Leading, relatedBy: .Equal, toItem: self.pictureImageView!, attribute: .Leading, multiplier: 1.0, constant: 0.0)
         let blurViewTrailing = NSLayoutConstraint(item: self.blurView!, attribute: .Trailing, relatedBy: .Equal, toItem: self.pictureImageView!, attribute: .Trailing, multiplier: 1.0, constant: 0.0)
@@ -59,6 +71,8 @@ class ListTableViewCell: UITableViewCell {
         self.contentView.addConstraint(pictureImageViewCenterY)
         self.contentView.addConstraint(pictureImageViewWidth)
         self.contentView.addConstraint(pictureImageViewHeight)
+        self.contentView.addConstraint(ratingLabelTop)
+        self.contentView.addConstraint(ratingLabelTrailing)
         self.contentView.addConstraint(blurViewLeading)
         self.contentView.addConstraint(blurViewTrailing)
         self.contentView.addConstraint(blurViewHeight)
@@ -78,14 +92,17 @@ class ListTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
         self.nameLabel?.text = nil
         self.pictureImageView?.image = nil
+        self.ratingLabel?.text = nil
         self.request?.cancel()
     }
 
     func configureCellFromListModel(listModel: ListModel) {
         
         self.nameLabel?.text = listModel.imageName
+        self.ratingLabel?.text = String(listModel.rating!)
         
         self.request?.cancel()
         self.request = Alamofire.request(.GET, listModel.imageURL!).responseImage { response in

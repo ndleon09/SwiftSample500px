@@ -12,22 +12,22 @@ class ListPresenter: NSObject, ListInteractorOutput {
 
     var listInteractor : ListInteractorInput?
     var listWireFrame : ListWireFrame?
-    var userInterface : ListViewInterface?
+    var listView : ListViewInterface?
     
     func updateView() {
-        userInterface?.showLoadingIndicator()
+        listView?.showLoadingIndicator()
         listInteractor?.findMostPopularPhotos()
     }
     
     func foundMostPopularPhotos(mostPopularPhotos: [ListModel]?) {
         
-        userInterface?.hideLoadingIndicator()
+        listView?.hideLoadingIndicator()
         
         if mostPopularPhotos == nil {
-            userInterface?.showNoContentMessage()
+            listView?.showNoContentMessage()
         }
         else {
-            userInterface?.showMostPopularPhotos(mostPopularPhotos)
+            listView?.showMostPopularPhotos(mostPopularPhotos)
         }
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct UserModel {
+class UserModel {
     
     let image : String?
     let name : String?
@@ -24,6 +24,7 @@ class PictureModel: NSObject {
     var image : String?
     var name : String?
     var detailText : String?
+    var rating : Double?
     var user : UserModel?
     var camera : String?
     var latitude : Double?
@@ -40,6 +41,7 @@ class PictureModel: NSObject {
         self.image = dictionary["image_url"] as? String
         self.name = dictionary["name"] as? String
         self.detailText = dictionary["description"] as? String
+        self.rating = dictionary["rating"] as? Double
         self.camera = dictionary["camera"] as? String
         self.latitude = dictionary["latitude"] as? Double
         self.longitude = dictionary["longitude"] as? Double

@@ -19,7 +19,7 @@ class ListWireFrame: NSObject {
         let viewController = ListViewController()
         viewController.listPresenter = listPresenter
         listViewController = viewController
-        listPresenter!.userInterface = viewController
+        listPresenter!.listView = viewController
         rootWireFrame?.showRootViewController(viewController, inWindow: window)
     }
 }
