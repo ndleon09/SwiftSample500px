@@ -11,8 +11,10 @@ import UIKit
 
 class RootWireFrame: NSObject {
 
+    var navigationController : UINavigationController?
+    
     func showRootViewController(rootViewController : UIViewController, inWindow : UIWindow) {
-        let navigationController = UINavigationController(rootViewController: rootViewController)
+        navigationController = UINavigationController(rootViewController: rootViewController)
         inWindow.backgroundColor = UIColor.whiteColor()
         inWindow.rootViewController = navigationController
         inWindow.makeKeyAndVisible()

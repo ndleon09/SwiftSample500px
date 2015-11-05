@@ -39,4 +39,37 @@ class CoreDataStore: NSObject {
         
         super.init()
     }
+    
+    func fetchPicturesEntriesWithPredicate(predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]?, completionBlock: (([PictureDataModel]) -> Void)!) {
+        let fetchRequest = NSFetchRequest(entityName: "PictureDataModel")
+        fetchRequest.predicate = predicate
+        fetchRequest.sortDescriptors = sortDescriptors
+        
+        managedObjectContext?.performBlock {
+            
+            do {
+                let queryResults = try self.managedObjectContext?.executeFetchRequest(fetchRequest)
+                let managedResults = queryResults! as! [PictureDataModel]
+                completionBlock(managedResults)
+            }
+            catch let error as NSError {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func newPictureDataModel() -> PictureDataModel {
+        let entityDescription = NSEntityDescription.entityForName("PictureDataModel", inManagedObjectContext: managedObjectContext!)
+        let newEntry = NSManagedObject(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext) as! PictureDataModel
+        return newEntry
+    }
+    
+    func save() {
+        do {
+            try managedObjectContext?.save()
+        }
+        catch let error as NSError {
+            print(error.localizedDescription)
+        }
+    }
 }

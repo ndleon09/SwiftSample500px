@@ -30,4 +30,8 @@ class ListPresenter: NSObject, ListInteractorOutput {
             listView?.showMostPopularPhotos(mostPopularPhotos)
         }
     }
+    
+    func showPhotoDetailFromIdentifier(photo: Double) {
+        self.listWireFrame?.showPhotoDetailFromIdentifier(photo)
+    }
 }

@@ -10,11 +10,13 @@ import UIKit
 
 class ListModel {
     
+    let id : Double?
     let imageURL : NSURL?
     let imageName : String?
     let rating : Double?
     
-    init(image: String?, name: String?, rating: Double?) {
+    init(id: Double?, image: String?, name: String?, rating: Double?) {
+        self.id = id
         self.imageURL = NSURL(string: image!)
         self.imageName = name
         self.rating = rating

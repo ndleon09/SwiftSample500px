@@ -27,7 +27,7 @@ class ListInteractor: NSObject, ListInteractorInput {
     func listModelsFromPictureModels(pictures: [PictureModel]?) -> [ListModel]? {
         var listModels : [ListModel] = []
         for pictureModel in pictures! {
-            let listModel = ListModel(image: pictureModel.image, name: pictureModel.name, rating: pictureModel.rating)
+            let listModel = ListModel(id: pictureModel.id, image: pictureModel.image, name: pictureModel.name, rating: pictureModel.rating)
             listModels.append(listModel)
         }
         return listModels

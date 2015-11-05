@@ -21,6 +21,7 @@ class UserModel {
 
 class PictureModel: NSObject {
 
+    var id : Double?
     var image : String?
     var name : String?
     var detailText : String?
@@ -38,6 +39,7 @@ class PictureModel: NSObject {
         
         self.init()
         
+        self.id = dictionary["id"] as? Double
         self.image = dictionary["image_url"] as? String
         self.name = dictionary["name"] as? String
         self.detailText = dictionary["description"] as? String

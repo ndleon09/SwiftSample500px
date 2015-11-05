@@ -23,7 +23,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         super.viewDidLoad()
 
-        self.title = "Most Popular Photos"
+        self.title = "500px"
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: "loadData", forControlEvents: .ValueChanged)
@@ -88,6 +88,11 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCellWithIdentifier(PhotoCellIdentifier) as! ListTableViewCell
         cell.configureCellFromListModel(self.mostPopularPhotos![indexPath.row])
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let listModel = self.mostPopularPhotos![indexPath.row]
+        self.listPresenter?.showPhotoDetailFromIdentifier(listModel.id!)
     }
     
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

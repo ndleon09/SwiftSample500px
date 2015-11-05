@@ -30,14 +30,22 @@ class AppDependencies {
         let listDataManager = ListDataManager()
         let listInteractor = ListInteractor(dataManager: listDataManager)
         
+        let detailWireFrame = DetailWireFrame()
+        let datailPresenter = DetailPresenter()
+        let detailInteractor = DetailInteractor()
+        
         listInteractor.output = listPresenter
         listPresenter.listInteractor = listInteractor
         listPresenter.listWireFrame = listWireFrame
         
         listWireFrame.rootWireFrame = rootWireFrame
         listWireFrame.listPresenter = listPresenter
+        listWireFrame.detailWireFrame = detailWireFrame
         
         listDataManager.networkService = networkService
         listDataManager.coreDataStore = coreDataStore
+        
+        detailWireFrame.detailPresenter = datailPresenter
+        datailPresenter.detailInteractor = detailInteractor
     }
 }

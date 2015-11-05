@@ -26,6 +26,54 @@ class ListDataManager: NSObject {
             if (completion != nil) {
                 completion(pictureModels)
             }
+            
+            let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+            dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                self.saveMostPopularPictures(pictureModels)
+            }
         })
+    }
+    
+    func saveMostPopularPictures(pictures: [PictureModel]) {
+        
+        for picture in pictures {
+            
+            let predicate = NSPredicate(format: "id == %lf", picture.id!)
+            
+            coreDataStore?.fetchPicturesEntriesWithPredicate(predicate, sortDescriptors: nil, completionBlock: { (picturesDataModels:[PictureDataModel]) -> Void in
+                
+                if picturesDataModels.count == 0 {
+                    
+                    let pictureDataModel = self.coreDataStore?.newPictureDataModel()
+                    
+                    if let id = picture.id {
+                        pictureDataModel?.id = id
+                    }
+                    if let name = picture.name {
+                        pictureDataModel?.name = name
+                    }
+                    if let image = picture.image {
+                        pictureDataModel?.image = image
+                    }
+                    if let detailText = picture.detailText {
+                        pictureDataModel?.detailText = detailText
+                    }
+                    if let rating = picture.rating {
+                        pictureDataModel?.rating = rating
+                    }
+                    if let camera = picture.camera {
+                        pictureDataModel?.camera = camera
+                    }
+                    if let latitude = picture.latitude {
+                        pictureDataModel?.latitude = latitude
+                    }
+                    if let longitude = picture.longitude {
+                        pictureDataModel?.longitude = longitude
+                    }
+                    
+                    self.coreDataStore?.save()
+                }
+            })
+        }
     }
 }

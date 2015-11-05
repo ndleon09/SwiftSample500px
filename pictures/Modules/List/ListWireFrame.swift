@@ -13,6 +13,7 @@ class ListWireFrame: NSObject {
     var rootWireFrame : RootWireFrame?
     var listPresenter : ListPresenter?
     var listViewController : ListViewController?
+    var detailWireFrame : DetailWireFrame?
     
     func presentListInterfaceFromWindow(window : UIWindow) {
         
@@ -21,5 +22,9 @@ class ListWireFrame: NSObject {
         listViewController = viewController
         listPresenter!.listView = viewController
         rootWireFrame?.showRootViewController(viewController, inWindow: window)
+    }
+    
+    func showPhotoDetailFromIdentifier(photo: Double) {
+        detailWireFrame?.presentDetailInterfaceFromViewController((rootWireFrame?.navigationController)!, photo: photo)
     }
 }
