@@ -90,7 +90,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCellWithIdentifier(PhotoCellIdentifier) as! ListTableViewCell
         let photo = mostPopularPhotos![indexPath.row]
         
-        cell.pictureImageView?.af_setImageWithURL(photo.imageURL!, placeholderImage: UIImage(named: "placeholder"))
+        cell.pictureImageView?.af_setImageWithURL(photo.imageURL!, placeholderImage: UIImage(named: "placeholder"), filter: nil, imageTransition: .CrossDissolve(0.4))
         cell.nameLabel?.text = photo.imageName
         cell.ratingLabel?.text = String(photo.rating!)
         

@@ -8,7 +8,7 @@
 
 import UIKit
 import MapKit
-import Alamofire
+import AlamofireImage
 
 enum DetailViewItems {
     
@@ -104,14 +104,9 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             }
             
             cell?.textLabel?.text = self.detailModel?.userName
-            cell?.imageView?.image = UIImage(named: "unknown_user")!.af_imageAspectScaledToFillSize(CGSize(width: 60.0, height: 60.0)).af_imageRoundedIntoCircle()
-            
-            Alamofire.request(.GET, (self.detailModel?.userImage)!).responseImage { response in
-                if let image = response.result.value {
-                    let userImage = image.af_imageAspectScaledToFillSize(CGSize(width: 60.0, height: 60.0)).af_imageRoundedIntoCircle()
-                    cell?.imageView?.image = userImage
-                }
-            }
+            let placeholder = UIImage(named: "unknown_user")?.af_imageScaledToSize(CGSize(width: 60, height: 60)).af_imageRoundedIntoCircle()
+            let composite = DynamicCompositeImageFilter([AspectScaledToFillSizeFilter(size: CGSize(width: 60, height: 60)), CircleFilter()])
+            cell?.imageView?.af_setImageWithURL((self.detailModel?.userImage)!, placeholderImage: placeholder, filter: composite, imageTransition: .CrossDissolve(0.5))
             
             return cell!
         }
