@@ -60,12 +60,17 @@ class NetworkingService: NSObject {
         let url = NSURL(string: "\(self.baseURL)/photos?\(parameters.stringFromHttpParameters())")
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
-            do {
-                let dictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
-                completion(dictionary.objectForKey("photos") as! NSArray?)
+            if error == nil {
+                do {
+                    let dictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
+                    completion(dictionary.objectForKey("photos") as! NSArray?)
+                }
+                catch let error as NSError {
+                    print(error.localizedDescription)
+                }
             }
-            catch let error as NSError {
-                print(error.localizedDescription)
+            else {
+                completion(nil)
             }
         }
         task.resume()
