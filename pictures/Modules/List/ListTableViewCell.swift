@@ -15,9 +15,7 @@ class ListTableViewCell: UITableViewCell {
     var pictureImageView : UIImageView?
     var ratingLabel : UILabel?
     var nameLabel : UILabel?
-    
     var blurView : UIVisualEffectView?
-    var request: Alamofire.Request?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -52,8 +50,8 @@ class ListTableViewCell: UITableViewCell {
         
         let pictureImageViewCenterX = NSLayoutConstraint(item: self.pictureImageView!, attribute: .CenterX, relatedBy: .Equal, toItem: self.contentView, attribute: .CenterX, multiplier: 1.0, constant: 0.0)
         let pictureImageViewCenterY = NSLayoutConstraint(item: self.pictureImageView!, attribute: .CenterY, relatedBy: .Equal, toItem: self.contentView, attribute: .CenterY, multiplier: 1.0, constant: 0.0)
-        let pictureImageViewWidth = NSLayoutConstraint(item: self.pictureImageView!, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 300.0)
-        let pictureImageViewHeight = NSLayoutConstraint(item: self.pictureImageView!, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 300.0)
+        let pictureImageViewHeight = NSLayoutConstraint(item: self.pictureImageView!, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: CGRectGetHeight(self.frame) - 10)
+        let pictureImageViewWidth = NSLayoutConstraint(item: self.pictureImageView!, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: pictureImageViewHeight.constant)
         
         let ratingLabelTop = NSLayoutConstraint(item: self.ratingLabel!, attribute: .Top, relatedBy: .Equal, toItem: self.pictureImageView!, attribute: .Top, multiplier: 1.0, constant: 8.0)
         let ratingLabelTrailing = NSLayoutConstraint(item: self.ratingLabel!, attribute: .Trailing, relatedBy: .Equal, toItem: self.pictureImageView!, attribute: .Trailing, multiplier: 1.0, constant: -8.0)

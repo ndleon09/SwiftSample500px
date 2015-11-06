@@ -19,8 +19,12 @@ class ListInteractor: NSObject, ListInteractorInput {
     
     func findMostPopularPhotos() {
         self.dataManager.findMostPopularPictures { (photos: [PictureModel]?) -> Void in
+            
             let listModels = self.listModelsFromPictureModels(photos)
-            self.output?.foundMostPopularPhotos(listModels)
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.output?.foundMostPopularPhotos(listModels)
+            })
         }
     }
     

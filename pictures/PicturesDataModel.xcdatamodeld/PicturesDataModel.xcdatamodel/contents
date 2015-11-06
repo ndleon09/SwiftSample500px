@@ -9,8 +9,10 @@
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="rating" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="userImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="PictureDataModel" positionX="-63" positionY="-18" width="128" height="165"/>
+        <element name="PictureDataModel" positionX="-63" positionY="-18" width="128" height="195"/>
     </elements>
 </model>

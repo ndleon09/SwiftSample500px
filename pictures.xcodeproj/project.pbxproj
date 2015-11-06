@@ -35,6 +35,7 @@
 		522E8E8C1BEBC03D0018ACE9 /* DetailInteractorInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522E8E8B1BEBC03D0018ACE9 /* DetailInteractorInterfaces.swift */; };
 		522E8E8F1BEBC3990018ACE9 /* PicturesDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 522E8E8D1BEBC3990018ACE9 /* PicturesDataModel.xcdatamodeld */; };
 		522E8E971BEBC5070018ACE9 /* PictureDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522E8E961BEBC5070018ACE9 /* PictureDataModel.swift */; };
+		522E8E991BEC9BC20018ACE9 /* DetailLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522E8E981BEC9BC20018ACE9 /* DetailLocationCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		522E8E8B1BEBC03D0018ACE9 /* DetailInteractorInterfaces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailInteractorInterfaces.swift; path = Modules/Detail/DetailInteractorInterfaces.swift; sourceTree = "<group>"; };
 		522E8E8E1BEBC3990018ACE9 /* PicturesDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PicturesDataModel.xcdatamodel; sourceTree = "<group>"; };
 		522E8E961BEBC5070018ACE9 /* PictureDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureDataModel.swift; sourceTree = "<group>"; };
+		522E8E981BEC9BC20018ACE9 /* DetailLocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailLocationCell.swift; path = Modules/Detail/DetailLocationCell.swift; sourceTree = "<group>"; };
 		6B07B2A883CA000661BEBE43 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC9111EBD0F01594A0F8304C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -283,6 +285,7 @@
 			children = (
 				522E8E831BEBB1950018ACE9 /* DetailViewController.swift */,
 				522E8E871BEBB34F0018ACE9 /* DetailViewInterface.swift */,
+				522E8E981BEC9BC20018ACE9 /* DetailLocationCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				522E8E8A1BEBB4000018ACE9 /* DetailInteractor.swift in Sources */,
 				52262EF91BEAC61300BC8A16 /* NetworkingService.swift in Sources */,
 				52262EC31BEAA75B00BC8A16 /* AppDelegate.swift in Sources */,
+				522E8E991BEC9BC20018ACE9 /* DetailLocationCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

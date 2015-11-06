@@ -7,12 +7,30 @@
 //
 
 import UIKit
+import MapKit
+import Alamofire
 
 enum DetailViewItems {
+    
     case DetailViewItemName, DetailViewItemDescription, DetailViewItemCamera, DetailViewItemUser, DetailViewItemMap
+    
+    func titleForItem() -> String {
+        switch self {
+        case .DetailViewItemName:
+            return "Name"
+        case .DetailViewItemDescription:
+            return "Detail text"
+        case .DetailViewItemCamera:
+            return "Camera"
+        case .DetailViewItemUser:
+            return "User"
+        case .DetailViewItemMap:
+            return "Location"
+        }
+    }
 }
 
-class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DetailViewInterface {
+class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate, DetailViewInterface {
 
     var detailPresenter : DetailPresenter?
     var detailModel: DetailModel?
@@ -25,10 +43,11 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         self.title = "Detail"
         self.view.backgroundColor = UIColor.whiteColor()
         
-        self.tableView = UITableView(frame: self.view.frame, style: UITableViewStyle.Plain)
+        self.tableView = UITableView(frame: self.view.frame, style: .Grouped)
         self.tableView?.dataSource = self
         self.tableView?.delegate = self
         self.tableView?.backgroundColor = UIColor.whiteColor()
+        self.tableView?.registerClass(DetailLocationCell.self, forCellReuseIdentifier: "LocationCell")
         self.view.addSubview(self.tableView!)
     }
     
@@ -45,8 +64,11 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         if self.detailModel?.name != nil {
             items.append(.DetailViewItemName)
         }
-        if self.detailModel?.descriptionText != nil {
+        if self.detailModel?.descriptionText?.characters.count > 0 {
             items.append(.DetailViewItemDescription)
+        }
+        if self.detailModel?.userName != nil {
+            items.append(.DetailViewItemUser)
         }
         if self.detailModel?.camera != nil {
             items.append(.DetailViewItemCamera)
@@ -64,17 +86,78 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let detailViewItem = self.items[indexPath.row]
+        
         if detailViewItem == .DetailViewItemMap {
-            return UITableViewCell()
+            let cellIdentifier = "LocationCell"
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as? DetailLocationCell
+            cell?.setLocation((self.detailModel?.latitude)!, longitude: (self.detailModel?.longitude)!)
+            return cell!
+        }
+        else if detailViewItem == .DetailViewItemUser {
+            let cellIdentifier = "UserCell"
+            var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)
+            
+            if cell == nil {
+                cell = UITableViewCell(style: .Default, reuseIdentifier: cellIdentifier)
+                cell?.textLabel?.font = UIFont.boldSystemFontOfSize(14)
+                cell?.selectionStyle = .None
+            }
+            
+            cell?.textLabel?.text = self.detailModel?.userName
+            cell?.imageView?.image = UIImage(named: "unknown_user")!.af_imageAspectScaledToFillSize(CGSize(width: 60.0, height: 60.0)).af_imageRoundedIntoCircle()
+            
+            Alamofire.request(.GET, (self.detailModel?.userImage)!).responseImage { response in
+                if let image = response.result.value {
+                    let userImage = image.af_imageAspectScaledToFillSize(CGSize(width: 60.0, height: 60.0)).af_imageRoundedIntoCircle()
+                    cell?.imageView?.image = userImage
+                }
+            }
+            
+            return cell!
         }
         else {
             let cellIdentifier = "SubtitleCell"
             var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)
+            
             if cell == nil {
                 cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellIdentifier)
-                
+                cell?.textLabel?.font = UIFont.boldSystemFontOfSize(14)
+                cell?.detailTextLabel?.numberOfLines = 3
+                cell?.selectionStyle = .None
             }
+            
+            switch detailViewItem {
+            case .DetailViewItemName:
+                cell?.detailTextLabel?.text = self.detailModel?.name
+            case .DetailViewItemDescription:
+                cell?.detailTextLabel?.text = self.detailModel?.descriptionText!.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
+            case .DetailViewItemCamera:
+                cell?.detailTextLabel?.text = self.detailModel?.camera
+            default:
+                cell?.detailTextLabel?.text = nil
+            }
+            
+            cell?.textLabel?.text = detailViewItem.titleForItem()
             return cell!
         }
     }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        let detailViewItem = self.items[indexPath.row]
+        
+        if detailViewItem == .DetailViewItemDescription {
+            return 84.0
+        }
+        if detailViewItem == .DetailViewItemUser {
+            return 72.0
+        }
+        else if detailViewItem == .DetailViewItemMap {
+            return 340.0
+        }
+        
+        return 54.0
+    }
+    
+    
 }

@@ -49,7 +49,7 @@ class PictureModel: NSObject {
         self.longitude = dictionary["longitude"] as? Double
         
         let userName = dictionary.valueForKeyPath("user.fullname") as? String
-        let userImageName = dictionary.valueForKeyPath("user.avatars.small.https") as? String
+        let userImageName = dictionary.valueForKeyPath("user.avatars.large.https") as? String
         self.user = UserModel(image: userImageName, name: userName)
     }
 }

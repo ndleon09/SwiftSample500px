@@ -18,4 +18,6 @@ class PictureDataModel: NSManagedObject {
     @NSManaged var camera : String
     @NSManaged var latitude : Double
     @NSManaged var longitude : Double
+    @NSManaged var userName : String
+    @NSManaged var userImage : String
 }

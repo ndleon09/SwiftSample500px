@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Alamofire
+import AlamofireImage
 
 let PhotoCellIdentifier : String = "PhotoCell"
 
@@ -17,7 +17,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var mostPopularPhotos : [ListModel]?
     var tableView : UITableView?
     var refreshControl : UIRefreshControl?
-    let cache : NSCache = NSCache()
     
     // MARK: Life view cycle
     
@@ -91,33 +90,16 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCellWithIdentifier(PhotoCellIdentifier) as! ListTableViewCell
         let photo = mostPopularPhotos![indexPath.row]
         
-        cell.pictureImageView?.image = nil
+        cell.pictureImageView?.af_setImageWithURL(photo.imageURL!, placeholderImage: UIImage(named: "placeholder"))
         cell.nameLabel?.text = photo.imageName
         cell.ratingLabel?.text = String(photo.rating!)
-        if let image = cache.objectForKey(photo.imageURL!) as? UIImage {
-            cell.pictureImageView?.image = image
-        }
-        else {
-            cell.request?.cancel()
-            cell.request = Alamofire.request(.GET, photo.imageURL!).responseImage { response in
-                if let image = response.result.value {
-                    cell.pictureImageView?.image = image
-                    self.cache.setObject(image, forKey: photo.imageURL!)
-                }
-            }
-        }
         
-        //cell.configureCellFromListModel(self.mostPopularPhotos![indexPath.row])
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let listModel = self.mostPopularPhotos![indexPath.row]
         self.listPresenter?.showPhotoDetailFromIdentifier(listModel.id!)
-    }
-    
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 320.0
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

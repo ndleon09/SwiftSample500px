@@ -16,8 +16,12 @@ class DetailInteractor: NSObject, DetailInteractorInput {
     func findDetailPhoto(identifier: Double) {
         
         detailDataManager?.findDetailPhoto(identifier, completion: { (picture: PictureDataModel?) -> Void in
+            
             let detailModel = self.detailModelFromPictureDataModel(picture)
-            self.detailPresenter?.foundDetailPhoto(detailModel)
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.detailPresenter?.foundDetailPhoto(detailModel)
+            })
         })
     }
     
@@ -29,6 +33,8 @@ class DetailInteractor: NSObject, DetailInteractorInput {
             detailModel.name = dataModel.name
             detailModel.camera = dataModel.camera
             detailModel.descriptionText = dataModel.detailText
+            detailModel.userName = dataModel.userName
+            detailModel.userImage = NSURL(string: dataModel.userImage)
             detailModel.latitude = dataModel.latitude
             detailModel.longitude = dataModel.longitude
             

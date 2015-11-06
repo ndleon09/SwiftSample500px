@@ -18,9 +18,11 @@ class ListDataManager: NSObject {
             
             var pictureModels : [PictureModel] = []
             
-            for photoDictionary in photos! {
-                let photo = PictureModel(dictionary: photoDictionary as! NSDictionary)
-                pictureModels.append(photo)
+            if let ph = photos {
+                for photoDictionary in ph {
+                    let photo = PictureModel(dictionary: photoDictionary as! NSDictionary)
+                    pictureModels.append(photo)
+                }
             }
             
             if (completion != nil) {
@@ -57,6 +59,12 @@ class ListDataManager: NSObject {
                     }
                     if let detailText = picture.detailText {
                         pictureDataModel?.detailText = detailText
+                    }
+                    if let userName = picture.user?.name {
+                        pictureDataModel?.userName = userName
+                    }
+                    if let userImage = picture.user?.image {
+                        pictureDataModel?.userImage = userImage
                     }
                     if let rating = picture.rating {
                         pictureDataModel?.rating = rating

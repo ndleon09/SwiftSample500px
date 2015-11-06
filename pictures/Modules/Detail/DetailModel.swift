@@ -8,11 +8,13 @@
 
 import Foundation
 
-class DetailModel {
+class DetailModel : NSObject {
     
     var name: String?
     var descriptionText: String?
     var camera: String?
+    var userName: String?
+    var userImage: NSURL?
     var latitude: Double?
     var longitude: Double?
 }
