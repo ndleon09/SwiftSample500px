@@ -15,6 +15,12 @@ class ListDataManager {
     
     func findMostPopularPictures(completion: ([PictureModel]) -> ()) {
         
+        findMostPopularPicturesInLocal(completion)
+        findMostPopularPicturesInNetwork(completion)
+    }
+    
+    private func findMostPopularPicturesInNetwork(completion: ([PictureModel]) -> ()) {
+        
         networkService.findMostPopularPictures { photos in
             
             var pictureModels : [PictureModel] = []
@@ -25,15 +31,32 @@ class ListDataManager {
                 pictureModels.append(photo)
             }
             
-            dispatch_async(dispatch_get_main_queue(), { 
-                completion(pictureModels)
-            })
-            
             self.saveMostPopularPictures(pictureModels)
+            self.findMostPopularPicturesInLocal(completion)
         }
     }
     
-    func saveMostPopularPictures(pictures: [PictureModel]) {
+    private func findMostPopularPicturesInLocal(completion: ([PictureModel]) -> ()) {
+        
+        let sortDescriptor = NSSortDescriptor(key: "rating", ascending: false)
+        coreDataStore.fetchPicturesEntriesWithPredicate(nil, sortDescriptors: [sortDescriptor], completionBlock: { objects in
+            
+            var pictureModels: [PictureModel] = []
+            for object in objects {
+                
+                let keys = Array(object.entity.attributesByName.keys)
+                let dictionary = object.dictionaryWithValuesForKeys(keys)
+                let picture = PictureModel(coreDataDictionary: dictionary)
+                pictureModels.append(picture)
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                completion(pictureModels)
+            })
+        })
+    }
+    
+    private func saveMostPopularPictures(pictures: [PictureModel]) {
         
         for picture in pictures {
             

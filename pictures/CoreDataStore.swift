@@ -38,7 +38,7 @@ class CoreDataStore {
         managedObjectContext.undoManager = nil
     }
     
-    func fetchPicturesEntriesWithPredicate(predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]?, completionBlock: ([PictureDataModel]) -> ()) {
+    func fetchPicturesEntriesWithPredicate(predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?, completionBlock: ([PictureDataModel]) -> ()) {
         
         let fetchRequest = NSFetchRequest(entityName: "PictureDataModel")
         fetchRequest.predicate = predicate
