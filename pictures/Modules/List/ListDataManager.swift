@@ -25,11 +25,11 @@ class ListDataManager {
                 pictureModels.append(photo)
             }
             
-            completion(pictureModels)
+            dispatch_async(dispatch_get_main_queue(), { 
+                completion(pictureModels)
+            })
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                self.saveMostPopularPictures(pictureModels)
-            }
+            self.saveMostPopularPictures(pictureModels)
         }
     }
     
@@ -37,44 +37,21 @@ class ListDataManager {
         
         for picture in pictures {
             
-            let predicate = NSPredicate(format: "id == %lf", picture.id!)
-            
-            coreDataStore.fetchPicturesEntriesWithPredicate(predicate, sortDescriptors: nil, completionBlock: { (picturesDataModels:[PictureDataModel]) -> Void in
+            coreDataStore.findPicture(picture.id!, completion: { object in
                 
-                if picturesDataModels.count == 0 {
+                if object == nil {
                     
                     let pictureDataModel = self.coreDataStore.newPictureDataModel()
-                    
-                    if let id = picture.id {
-                        pictureDataModel.id = id
-                    }
-                    if let name = picture.name {
-                        pictureDataModel.name = name
-                    }
-                    if let image = picture.image {
-                        pictureDataModel.image = image
-                    }
-                    if let detailText = picture.detailText {
-                        pictureDataModel.detailText = detailText
-                    }
-                    if let userName = picture.user?.name {
-                        pictureDataModel.userName = userName
-                    }
-                    if let userImage = picture.user?.image {
-                        pictureDataModel.userImage = userImage
-                    }
-                    if let rating = picture.rating {
-                        pictureDataModel.rating = rating
-                    }
-                    if let camera = picture.camera {
-                        pictureDataModel.camera = camera
-                    }
-                    if let latitude = picture.latitude {
-                        pictureDataModel.latitude = latitude
-                    }
-                    if let longitude = picture.longitude {
-                        pictureDataModel.longitude = longitude
-                    }
+                    pictureDataModel.id = picture.id
+                    pictureDataModel.name = picture.name
+                    pictureDataModel.image = picture.image
+                    pictureDataModel.detailText = picture.detailText
+                    pictureDataModel.userName = picture.user?.name
+                    pictureDataModel.userImage = picture.user?.image
+                    pictureDataModel.rating = picture.rating
+                    pictureDataModel.camera = picture.camera
+                    pictureDataModel.latitude = picture.latitude
+                    pictureDataModel.longitude = picture.longitude
                 }
             })
         }

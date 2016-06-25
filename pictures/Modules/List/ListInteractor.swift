@@ -10,13 +10,8 @@ import Foundation
 
 class ListInteractor: ListInteractorInput {
 
-    let dataManager : ListDataManager!
+    var dataManager : ListDataManager!
     var output : ListInteractorOutput!
-    
-    init(dataManager: ListDataManager) {
-        
-        self.dataManager = dataManager
-    }
     
     func findMostPopularPhotos() {
         

@@ -8,23 +8,35 @@
 
 import UIKit
 
-class ListWireFrame: NSObject {
-
-    var rootWireFrame : RootWireFrame?
-    var listPresenter : ListPresenter?
-    var listViewController : ListViewController?
-    var detailWireFrame : DetailWireFrame?
+class ListWireFrame {
     
-    func presentListInterfaceFromWindow(window : UIWindow) {
+    func presentListModuleFromWindow(window : UIWindow) {
+        
+        let networkService = NetworkingServiceImp()
+        let coreDataStore = CoreDataStore()
+        
+        let listPresenter = ListPresenter()
+        let listDataManager = ListDataManager()
+        let listInteractor = ListInteractor()
         
         let viewController = ListViewController()
+        
+        listPresenter.listInteractor = listInteractor
+        listPresenter.listWireFrame = self
+        listPresenter.listView = viewController
+        
+        listDataManager.networkService = networkService
+        listDataManager.coreDataStore = coreDataStore
+        
+        listInteractor.dataManager = listDataManager
+        listInteractor.output = listPresenter
+        
         viewController.listPresenter = listPresenter
-        listViewController = viewController
-        listPresenter!.listView = viewController
-        rootWireFrame?.showRootViewController(viewController, inWindow: window)
+        
+        RootWireFrame().showRootViewController(viewController, inWindow: window)
     }
     
     func showPhotoDetailFromIdentifier(photo: Double) {
-        detailWireFrame?.presentDetailInterfaceFromViewController((rootWireFrame?.navigationController)!, photo: photo)
+        //detailWireFrame?.presentDetailInterfaceFromViewController((rootWireFrame?.navigationController)!, photo: photo)
     }
 }

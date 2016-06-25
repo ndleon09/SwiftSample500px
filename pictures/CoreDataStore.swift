@@ -57,6 +57,14 @@ class CoreDataStore {
         }
     }
     
+    func findPicture(id: Double, completion: (PictureDataModel?) -> ()) {
+        
+        let predicate = NSPredicate(format: "id == %lf", id)
+        fetchPicturesEntriesWithPredicate(predicate, sortDescriptors: nil) { pictures in
+            completion(pictures.first)
+        }
+    }
+    
     func newPictureDataModel() -> PictureDataModel {
         
         let entityDescription = NSEntityDescription.entityForName("PictureDataModel", inManagedObjectContext: managedObjectContext!)

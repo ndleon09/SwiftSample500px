@@ -74,6 +74,7 @@ class NetworkingServiceImp: NetworkingService {
                 }
                 catch let error as NSError {
                     print(error.localizedDescription)
+                    completion([])
                 }
             }
             else {

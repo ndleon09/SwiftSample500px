@@ -12,13 +12,11 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
-    let appDependencies = AppDependencies()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        appDependencies.installRootViewControllerIntoWindow(window!)
+        RootWireFrame().installRootViewControllerIntoWindow(window!)
         
         return true
     }

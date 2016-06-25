@@ -14,7 +14,7 @@ struct UserModel {
     let name : String?
 }
 
-class PictureModel: NSObject {
+class PictureModel {
 
     var id : Double?
     var image : String?
@@ -26,13 +26,7 @@ class PictureModel: NSObject {
     var latitude : Double?
     var longitude : Double?
     
-    override init() {
-        
-    }
-    
-    convenience init(dictionary: NSDictionary) {
-        
-        self.init()
+    init(dictionary: NSDictionary) {
         
         self.id = dictionary["id"] as? Double
         self.image = dictionary["image_url"] as? String
