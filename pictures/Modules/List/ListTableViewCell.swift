@@ -12,37 +12,38 @@ import AlamofireImage
 
 class ListTableViewCell: UITableViewCell {
     
-    var pictureImageView : UIImageView?
-    var ratingLabel : UILabel?
-    var nameLabel : UILabel?
-    var blurView : UIVisualEffectView?
+    var pictureImageView : UIImageView!
+    var ratingLabel : UILabel!
+    var nameLabel : UILabel!
+    var blurView : UIVisualEffectView!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.selectionStyle = UITableViewCellSelectionStyle.None
         
-        self.pictureImageView = UIImageView(frame: CGRectZero)
-        self.pictureImageView?.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(self.pictureImageView!)
+        pictureImageView = UIImageView(frame: CGRectZero)
+        pictureImageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(pictureImageView)
         
-        self.ratingLabel = UILabel(frame: CGRectZero)
-        self.ratingLabel?.translatesAutoresizingMaskIntoConstraints = false
-        self.ratingLabel?.font = UIFont.systemFontOfSize(12)
-        self.ratingLabel?.textColor = UIColor.whiteColor()
-        self.contentView.addSubview(self.ratingLabel!)
+        ratingLabel = UILabel(frame: CGRectZero)
+        ratingLabel.translatesAutoresizingMaskIntoConstraints = false
+        ratingLabel.font = UIFont.systemFontOfSize(12)
+        ratingLabel.textColor = UIColor.whiteColor()
+        contentView.addSubview(ratingLabel)
         
         let blurEffect = UIBlurEffect(style: .Dark)
-        self.blurView = UIVisualEffectView(effect: blurEffect)
-        self.blurView?.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(self.blurView!)
+        blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(blurView)
         
-        self.nameLabel = UILabel(frame: CGRectZero)
-        self.nameLabel?.translatesAutoresizingMaskIntoConstraints = false
-        self.nameLabel?.textColor = UIColor.whiteColor()
-        self.nameLabel?.font = UIFont.systemFontOfSize(14.0)
-        self.nameLabel?.numberOfLines = 1
-        self.blurView?.addSubview(self.nameLabel!)
+        nameLabel = UILabel(frame: CGRectZero)
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.textColor = UIColor.whiteColor()
+        nameLabel.font = UIFont.systemFontOfSize(14.0)
+        nameLabel.numberOfLines = 1
+        blurView.addSubview(nameLabel)
     }
     
     override func layoutSubviews() {
@@ -82,9 +83,5 @@ class ListTableViewCell: UITableViewCell {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
 }

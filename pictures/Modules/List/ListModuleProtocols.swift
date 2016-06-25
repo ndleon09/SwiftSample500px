@@ -7,8 +7,14 @@
 //
 
 import Foundation
+import UIKit
 
-protocol ListViewInterface {
+protocol ListWireFrameProtocol: class {
+    
+    func presentListModuleFromWindow(window : UIWindow)
+}
+
+protocol ListViewInterfaceProtocol: class {
     
     func showLoadingIndicator()
     func hideLoadingIndicator()
@@ -16,12 +22,12 @@ protocol ListViewInterface {
     func showMostPopularPhotos(photos: [ListModel])
 }
 
-protocol ListInteractorInput {
+protocol ListInteractorInputProtocol: class {
     
     func findMostPopularPhotos()
 }
 
-protocol ListInteractorOutput {
+protocol ListInteractorOutputProtocol: class {
     
     func foundMostPopularPhotos(mostPopularPhotos : [PictureModel])
 }

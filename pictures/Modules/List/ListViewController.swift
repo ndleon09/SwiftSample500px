@@ -11,7 +11,7 @@ import AlamofireImage
 
 let PhotoCellIdentifier : String = "PhotoCell"
 
-class ListViewController: UIViewController, ListViewInterface {
+class ListViewController: UIViewController, ListViewInterfaceProtocol {
 
     var listPresenter : ListPresenter!
     var mostPopularPhotos : [ListModel] = []
@@ -78,12 +78,11 @@ extension ListViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(PhotoCellIdentifier) as! ListTableViewCell
         let photo = mostPopularPhotos[indexPath.row]
+        let item = ListItem(model: photo)
         
-        cell.pictureImageView?.af_setImageWithURL(photo.imageURL!, placeholderImage: UIImage(named: "placeholder"), filter: nil, imageTransition: .CrossDissolve(0.4))
-        cell.nameLabel?.text = photo.imageName
-        cell.ratingLabel?.text = String(photo.rating!)
+        let cell = item.drawer.cell(forTableView: tableView, atIndexPath: indexPath)
+        item.drawer.draw(cell: cell, withItem: item)
         
         return cell
     }

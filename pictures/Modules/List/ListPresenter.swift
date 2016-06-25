@@ -8,11 +8,12 @@
 
 import UIKit
 
-class ListPresenter: ListInteractorOutput {
+class ListPresenter: ListInteractorOutputProtocol {
 
-    var listInteractor : ListInteractorInput!
-    var listWireFrame : ListWireFrame!
-    var listView : ListViewInterface!
+    var listInteractor : ListInteractorInputProtocol!
+    var listWireFrame : ListWireFrameProtocol!
+    
+    weak var listView : ListViewInterfaceProtocol!
     
     func updateView() {
         listView.showLoadingIndicator()
@@ -32,7 +33,7 @@ class ListPresenter: ListInteractorOutput {
     }
     
     func showPhotoDetailFromIdentifier(photo: Double) {
-        listWireFrame.showPhotoDetailFromIdentifier(photo)
+        //listWireFrame.showPhotoDetailFromIdentifier(photo)
     }
     
     private func convert(picturesModel: [PictureModel]) -> [ListModel] {

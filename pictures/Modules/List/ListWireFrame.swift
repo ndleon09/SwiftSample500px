@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListWireFrame {
+class ListWireFrame: ListWireFrameProtocol {
     
     func presentListModuleFromWindow(window : UIWindow) {
         
