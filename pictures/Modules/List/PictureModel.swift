@@ -8,15 +8,10 @@
 
 import UIKit
 
-class UserModel {
+struct UserModel {
     
     let image : String?
     let name : String?
-    
-    init(image: String?, name: String?) {
-        self.image = image
-        self.name = name
-    }
 }
 
 class PictureModel: NSObject {

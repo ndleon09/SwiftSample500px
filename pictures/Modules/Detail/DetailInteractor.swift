@@ -8,10 +8,10 @@
 
 import Foundation
 
-class DetailInteractor: NSObject, DetailInteractorInput {
+class DetailInteractor: DetailInteractorInput {
 
-    var detailPresenter : DetailInteractorOutput?
-    var detailDataManager : DetailDataManager?
+    var detailPresenter : DetailInteractorOutput!
+    var detailDataManager : DetailDataManager!
     
     func findDetailPhoto(identifier: Double) {
         
@@ -34,9 +34,9 @@ class DetailInteractor: NSObject, DetailInteractorInput {
             detailModel.camera = dataModel.camera
             detailModel.descriptionText = dataModel.detailText
             detailModel.userName = dataModel.userName
-            detailModel.userImage = NSURL(string: dataModel.userImage)
-            detailModel.latitude = dataModel.latitude
-            detailModel.longitude = dataModel.longitude
+            detailModel.userImage = NSURL(string: dataModel.userImage!)
+            detailModel.latitude = dataModel.latitude?.doubleValue
+            detailModel.longitude = dataModel.longitude?.doubleValue
             
             return detailModel
         }

@@ -8,32 +8,29 @@
 
 import Foundation
 
-class ListDataManager: NSObject {
+class ListDataManager {
 
-    var networkService : NetworkingService?
-    var coreDataStore : CoreDataStore?
+    var networkService : NetworkingService!
+    var coreDataStore : CoreDataStore!
     
-    func findMostPopularPictures(completion: (([PictureModel]?) -> Void)!) {
-        self.networkService?.findMostPopularPictures({ (photos: NSArray?) -> Void in
+    func findMostPopularPictures(completion: ([PictureModel]) -> ()) {
+        
+        networkService.findMostPopularPictures { photos in
             
             var pictureModels : [PictureModel] = []
             
-            if let ph = photos {
-                for photoDictionary in ph {
-                    let photo = PictureModel(dictionary: photoDictionary as! NSDictionary)
-                    pictureModels.append(photo)
-                }
+            for photoDictionary in photos {
+                
+                let photo = PictureModel(dictionary: photoDictionary as! NSDictionary)
+                pictureModels.append(photo)
             }
             
-            if (completion != nil) {
-                completion(pictureModels)
-            }
+            completion(pictureModels)
             
-            let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-            dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                 self.saveMostPopularPictures(pictureModels)
             }
-        })
+        }
     }
     
     func saveMostPopularPictures(pictures: [PictureModel]) {
@@ -42,46 +39,46 @@ class ListDataManager: NSObject {
             
             let predicate = NSPredicate(format: "id == %lf", picture.id!)
             
-            coreDataStore?.fetchPicturesEntriesWithPredicate(predicate, sortDescriptors: nil, completionBlock: { (picturesDataModels:[PictureDataModel]) -> Void in
+            coreDataStore.fetchPicturesEntriesWithPredicate(predicate, sortDescriptors: nil, completionBlock: { (picturesDataModels:[PictureDataModel]) -> Void in
                 
                 if picturesDataModels.count == 0 {
                     
-                    let pictureDataModel = self.coreDataStore?.newPictureDataModel()
+                    let pictureDataModel = self.coreDataStore.newPictureDataModel()
                     
                     if let id = picture.id {
-                        pictureDataModel?.id = id
+                        pictureDataModel.id = id
                     }
                     if let name = picture.name {
-                        pictureDataModel?.name = name
+                        pictureDataModel.name = name
                     }
                     if let image = picture.image {
-                        pictureDataModel?.image = image
+                        pictureDataModel.image = image
                     }
                     if let detailText = picture.detailText {
-                        pictureDataModel?.detailText = detailText
+                        pictureDataModel.detailText = detailText
                     }
                     if let userName = picture.user?.name {
-                        pictureDataModel?.userName = userName
+                        pictureDataModel.userName = userName
                     }
                     if let userImage = picture.user?.image {
-                        pictureDataModel?.userImage = userImage
+                        pictureDataModel.userImage = userImage
                     }
                     if let rating = picture.rating {
-                        pictureDataModel?.rating = rating
+                        pictureDataModel.rating = rating
                     }
                     if let camera = picture.camera {
-                        pictureDataModel?.camera = camera
+                        pictureDataModel.camera = camera
                     }
                     if let latitude = picture.latitude {
-                        pictureDataModel?.latitude = latitude
+                        pictureDataModel.latitude = latitude
                     }
                     if let longitude = picture.longitude {
-                        pictureDataModel?.longitude = longitude
+                        pictureDataModel.longitude = longitude
                     }
                 }
             })
         }
         
-        self.coreDataStore?.save()
+        coreDataStore.save()
     }
 }

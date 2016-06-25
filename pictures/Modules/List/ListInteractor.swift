@@ -8,32 +8,21 @@
 
 import Foundation
 
-class ListInteractor: NSObject, ListInteractorInput {
+class ListInteractor: ListInteractorInput {
 
-    let dataManager : ListDataManager
-    var output : ListInteractorOutput?
+    let dataManager : ListDataManager!
+    var output : ListInteractorOutput!
     
     init(dataManager: ListDataManager) {
+        
         self.dataManager = dataManager
     }
     
     func findMostPopularPhotos() {
-        self.dataManager.findMostPopularPictures { (photos: [PictureModel]?) -> Void in
+        
+        dataManager.findMostPopularPictures { photos in
             
-            let listModels = self.listModelsFromPictureModels(photos)
-            
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.output?.foundMostPopularPhotos(listModels)
-            })
+            self.output.foundMostPopularPhotos(photos)
         }
-    }
-    
-    func listModelsFromPictureModels(pictures: [PictureModel]?) -> [ListModel]? {
-        var listModels : [ListModel] = []
-        for pictureModel in pictures! {
-            let listModel = ListModel(id: pictureModel.id, image: pictureModel.image, name: pictureModel.name, rating: pictureModel.rating)
-            listModels.append(listModel)
-        }
-        return listModels
     }
 }

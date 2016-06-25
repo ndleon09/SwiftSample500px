@@ -22,7 +22,7 @@ class AppDependencies {
     
     func configureDependencies() {
         
-        let networkService = NetworkingService()
+        let networkService = NetworkingServiceImp()
         let coreDataStore = CoreDataStore()
         let rootWireFrame = RootWireFrame()
         

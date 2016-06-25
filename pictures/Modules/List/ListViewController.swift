@@ -11,12 +11,13 @@ import AlamofireImage
 
 let PhotoCellIdentifier : String = "PhotoCell"
 
-class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ListViewInterface {
+class ListViewController: UIViewController, ListViewInterface {
 
-    var listPresenter : ListPresenter?
-    var mostPopularPhotos : [ListModel]?
-    var tableView : UITableView?
-    var refreshControl : UIRefreshControl?
+    var listPresenter : ListPresenter!
+    var mostPopularPhotos : [ListModel] = []
+    
+    var tableView : UITableView!
+    var refreshControl : UIRefreshControl!
     
     // MARK: Life view cycle
     
@@ -24,71 +25,61 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         super.viewDidLoad()
 
-        self.title = "500px"
+        title = "500px"
         
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: "loadData", forControlEvents: .ValueChanged)
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(loadData), forControlEvents: .ValueChanged)
         
-        self.tableView = UITableView(frame: self.view.frame, style: UITableViewStyle.Plain)
-        self.tableView?.dataSource = self
-        self.tableView?.delegate = self
-        self.tableView?.backgroundColor = UIColor.whiteColor()
-        self.tableView?.separatorStyle = UITableViewCellSeparatorStyle.None
-        self.tableView?.addSubview(self.refreshControl!)
-        self.tableView?.registerClass(ListTableViewCell.self, forCellReuseIdentifier: PhotoCellIdentifier)
-        self.view.addSubview(self.tableView!)
+        tableView = UITableView(frame: self.view.frame, style: UITableViewStyle.Plain)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.backgroundColor = UIColor.whiteColor()
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        tableView.addSubview(self.refreshControl!)
+        tableView.registerClass(ListTableViewCell.self, forCellReuseIdentifier: PhotoCellIdentifier)
+        view.addSubview(self.tableView!)
         
-        self.loadData()
+        loadData()
     }
     
     func loadData() {
-        listPresenter?.updateView()
+        listPresenter.updateView()
     }
     
     // MARK: Implement ListViewInterface protocol
     
     func showLoadingIndicator() {
-        self.refreshControl?.beginRefreshing()
+        refreshControl.beginRefreshing()
     }
     
     func hideLoadingIndicator() {
-        self.refreshControl?.endRefreshing()
+        refreshControl.endRefreshing()
     }
     
     func showNoContentMessage() {
         let alertViewController = UIAlertController(title: "Alert", message: "No photos found", preferredStyle: .Alert)
         alertViewController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-        self.presentViewController(alertViewController, animated: true, completion: nil)
+        presentViewController(alertViewController, animated: true, completion: nil)
     }
     
-    func showMostPopularPhotos(photos: [ListModel]?) {
+    func showMostPopularPhotos(photos: [ListModel]) {
+        
         mostPopularPhotos = photos
-        reloadPhotos()
+        tableView.reloadData()
     }
-    
-    func reloadPhotos() {
-        tableView?.reloadData()
-    }
-    
-    // MARK: Tableview datasource and delegate
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        var numberOfSection = 1;
-        if mostPopularPhotos?.count == nil {
-            numberOfSection = 0;
-        }
-        return numberOfSection
-    }
+}
+
+extension ListViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = mostPopularPhotos?.count
-        return count!
+        
+        return mostPopularPhotos.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier(PhotoCellIdentifier) as! ListTableViewCell
-        let photo = mostPopularPhotos![indexPath.row]
+        let photo = mostPopularPhotos[indexPath.row]
         
         cell.pictureImageView?.af_setImageWithURL(photo.imageURL!, placeholderImage: UIImage(named: "placeholder"), filter: nil, imageTransition: .CrossDissolve(0.4))
         cell.nameLabel?.text = photo.imageName
@@ -96,13 +87,17 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         return cell
     }
+}
+
+extension ListViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let listModel = self.mostPopularPhotos![indexPath.row]
-        self.listPresenter?.showPhotoDetailFromIdentifier(listModel.id!)
+        let listModel = mostPopularPhotos[indexPath.row]
+        listPresenter.showPhotoDetailFromIdentifier(listModel.id!)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 320.0
     }
 }
+

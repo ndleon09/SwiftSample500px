@@ -19,6 +19,7 @@ extension String {
     /// :returns: Return precent escaped string.
     
     func stringByAddingPercentEncodingForURLQueryValue() -> String? {
+        
         let characterSet = NSMutableCharacterSet.alphanumericCharacterSet()
         characterSet.addCharactersInString("-._~")
         return self.stringByAddingPercentEncodingWithAllowedCharacters(characterSet)
@@ -36,6 +37,7 @@ extension Dictionary {
     /// :returns: String representation in the form of key1=value1&key2=value2 where the keys and values are percent escaped
     
     func stringFromHttpParameters() -> String {
+        
         let parameterArray = self.map { (key, value) -> String in
             let percentEscapedKey = (key as! String).stringByAddingPercentEncodingForURLQueryValue()!
             let percentEscapedValue = (value as! String).stringByAddingPercentEncodingForURLQueryValue()!
@@ -47,30 +49,35 @@ extension Dictionary {
     
 }
 
-typealias FindMostPopularPicturesCompletionBlock = NSArray? -> Void
-
-class NetworkingService: NSObject {
-
-    var baseURL = "https://api.500px.com/v1"
-    let consumerKey = "FMEvCvHM8Ask8kF1BzJa9yEvznnmpHwYxME3S3dh"
+protocol NetworkingService {
     
-    func findMostPopularPictures(completion: FindMostPopularPicturesCompletionBlock) {
+    func findMostPopularPictures(completion: ([AnyObject]) -> ())
+}
+
+class NetworkingServiceImp: NetworkingService {
+
+    private var baseURL = "https://api.500px.com/v1"
+    private let consumerKey = "FMEvCvHM8Ask8kF1BzJa9yEvznnmpHwYxME3S3dh"
+    
+    func findMostPopularPictures(completion: ([AnyObject]) -> ()) {
         
-        let parameters : [String:String] = ["feature": "popular", "sort": "rating", "sort_direction": "desc", "image_size": "440", "consumer_key": self.consumerKey]
+        let parameters : [String:String] = ["feature": "popular", "sort": "rating", "sort_direction": "desc", "image_size": "440", "consumer_key": consumerKey]
         let url = NSURL(string: "\(self.baseURL)/photos?\(parameters.stringFromHttpParameters())")
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url!) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+        
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url!) { data, response, error in
             
             if error == nil {
                 do {
-                    let dictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
-                    completion(dictionary.objectForKey("photos") as! NSArray?)
+                    let dictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! [String: AnyObject]
+                    let photos = dictionary["photos"] as! [AnyObject]
+                    completion(photos)
                 }
                 catch let error as NSError {
                     print(error.localizedDescription)
                 }
             }
             else {
-                completion(nil)
+                completion([])
             }
         }
         task.resume()

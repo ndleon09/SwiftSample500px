@@ -8,30 +8,43 @@
 
 import UIKit
 
-class ListPresenter: NSObject, ListInteractorOutput {
+class ListPresenter: ListInteractorOutput {
 
-    var listInteractor : ListInteractorInput?
-    var listWireFrame : ListWireFrame?
-    var listView : ListViewInterface?
+    var listInteractor : ListInteractorInput!
+    var listWireFrame : ListWireFrame!
+    var listView : ListViewInterface!
     
     func updateView() {
-        listView?.showLoadingIndicator()
-        listInteractor?.findMostPopularPhotos()
+        listView.showLoadingIndicator()
+        listInteractor.findMostPopularPhotos()
     }
     
-    func foundMostPopularPhotos(mostPopularPhotos: [ListModel]?) {
+    func foundMostPopularPhotos(mostPopularPhotos: [PictureModel]) {
         
-        listView?.hideLoadingIndicator()
+        listView.hideLoadingIndicator()
         
-        if mostPopularPhotos == nil {
-            listView?.showNoContentMessage()
+        if mostPopularPhotos.count == 0 {
+            listView.showNoContentMessage()
         }
         else {
-            listView?.showMostPopularPhotos(mostPopularPhotos)
+            listView.showMostPopularPhotos(convert(mostPopularPhotos))
         }
     }
     
     func showPhotoDetailFromIdentifier(photo: Double) {
-        self.listWireFrame?.showPhotoDetailFromIdentifier(photo)
+        listWireFrame.showPhotoDetailFromIdentifier(photo)
+    }
+    
+    private func convert(picturesModel: [PictureModel]) -> [ListModel] {
+        
+        var listModels: [ListModel] = []
+        
+        for picture in picturesModel {
+            
+            let model = ListModel(id: picture.id, imageURL: NSURL(string: picture.image!), imageName: picture.name, rating: picture.rating)
+            listModels.append(model)
+        }
+        
+        return listModels
     }
 }
