@@ -10,20 +10,22 @@ import UIKit
 
 class DetailPresenter: DetailInteractorOutputProtocol {
 
-    var detailWireFrame : DetailWireFrame!
-    var detailInteractor : DetailInteractor!
-    var detailView : DetailViewInterface!
+    var detailWireFrame : DetailWireFrameProtocol!
+    var detailInteractor : DetailInteractorInputProtocol!
+    var detailView : DetailViewProtocol!
     
     func loadDetailFromIdentifier(identifier: Double) {
-        detailInteractor?.findDetailPhoto(identifier)
+        
+        detailInteractor.findDetailPhoto(identifier)
     }
     
     func foundDetailPhoto(detailModel: DetailModel?) {
+        
         if let model = detailModel {
-            detailView?.showDetailPicture(model)
+            detailView.showDetailPicture(model)
         }
         else {
-            detailView?.showNotFoundMessage()
+            detailView.showNotFoundMessage()
         }
     }
 }

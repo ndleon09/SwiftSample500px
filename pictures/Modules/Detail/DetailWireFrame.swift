@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailWireFrame {
+class DetailWireFrame: DetailWireFrameProtocol {
     
     func presentDetailModuleInNavigationController(navigationController: UINavigationController, photo: Double) {
         

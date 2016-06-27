@@ -9,7 +9,7 @@
 import UIKit
 import UIKit
 
-class DetailViewController: UIViewController, DetailViewInterface {
+class DetailViewController: UIViewController, DetailViewProtocol {
 
     var detailPresenter : DetailPresenter!
     var detailModel: DetailModel?

@@ -7,6 +7,18 @@
 //
 
 import Foundation
+import UIKit
+
+protocol DetailWireFrameProtocol: class {
+    
+    func presentDetailModuleInNavigationController(navigationController: UINavigationController, photo: Double)
+}
+
+protocol DetailViewProtocol: class {
+    
+    func showNotFoundMessage()
+    func showDetailPicture(detailModel: DetailModel)
+}
 
 protocol DetailDataManagerProtocol: class {
     
