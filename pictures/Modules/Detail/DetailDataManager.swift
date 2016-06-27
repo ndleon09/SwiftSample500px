@@ -10,15 +10,12 @@ import Foundation
 
 class DetailDataManager: NSObject {
     
-    var coreDataStore : CoreDataStore?
+    var coreDataStore : CoreDataStore!
     
-    func findDetailPhoto(photo: Double, completion: ((PictureDataModel?) -> Void)!) {
+    func findDetailPhoto(photo: Double, completion: (PictureDataModel?) -> ()) {
         
-        let predicate = NSPredicate(format: "id == %lf", photo)
-        coreDataStore?.fetchPicturesEntriesWithPredicate(predicate, sortDescriptors: nil, completionBlock: { (pictures: [PictureDataModel]) -> Void in
-            if let picture = pictures.first {
-                completion(picture)
-            }
+        coreDataStore.findPicture(photo, completion: { picture in
+            completion(picture)
         })
     }
 }

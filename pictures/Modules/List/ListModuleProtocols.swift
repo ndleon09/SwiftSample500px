@@ -11,7 +11,10 @@ import UIKit
 
 protocol ListWireFrameProtocol: class {
     
+    var rootWireFrame: RootWireFrame! { get }
+    
     func presentListModuleFromWindow(window : UIWindow)
+    func showPhotoDetailFromIdentifier(photo: Double)
 }
 
 protocol ListViewInterfaceProtocol: class {
@@ -30,4 +33,9 @@ protocol ListInteractorInputProtocol: class {
 protocol ListInteractorOutputProtocol: class {
     
     func foundMostPopularPhotos(mostPopularPhotos : [PictureModel])
+}
+
+protocol ListDataManagerProtocol: class {
+    
+    func findMostPopularPictures(completion: ([PictureModel]) -> ())
 }

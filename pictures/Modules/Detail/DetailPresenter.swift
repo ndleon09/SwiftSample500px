@@ -10,9 +10,9 @@ import UIKit
 
 class DetailPresenter: NSObject, DetailInteractorOutput {
 
-    var detailWireFrame : DetailWireFrame?
-    var detailInteractor : DetailInteractor?
-    var detailView : DetailViewInterface?
+    var detailWireFrame : DetailWireFrame!
+    var detailInteractor : DetailInteractor!
+    var detailView : DetailViewInterface!
     
     func loadDetailFromIdentifier(identifier: Double) {
         detailInteractor?.findDetailPhoto(identifier)

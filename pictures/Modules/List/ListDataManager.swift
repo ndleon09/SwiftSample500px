@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ListDataManager {
+class ListDataManager: ListDataManagerProtocol {
 
     var networkService : NetworkingService!
     var coreDataStore : CoreDataStore!
@@ -75,10 +75,10 @@ class ListDataManager {
                     pictureDataModel.camera = picture.camera
                     pictureDataModel.latitude = picture.latitude
                     pictureDataModel.longitude = picture.longitude
+                    
+                    self.coreDataStore.save()
                 }
             })
         }
-        
-        coreDataStore.save()
     }
 }

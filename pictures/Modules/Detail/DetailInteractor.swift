@@ -15,12 +15,12 @@ class DetailInteractor: DetailInteractorInput {
     
     func findDetailPhoto(identifier: Double) {
         
-        detailDataManager?.findDetailPhoto(identifier, completion: { (picture: PictureDataModel?) -> Void in
+        detailDataManager.findDetailPhoto(identifier, completion: { picture in
             
             let detailModel = self.detailModelFromPictureDataModel(picture)
             
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.detailPresenter?.foundDetailPhoto(detailModel)
+            dispatch_async(dispatch_get_main_queue(), {
+                self.detailPresenter.foundDetailPhoto(detailModel)
             })
         })
     }

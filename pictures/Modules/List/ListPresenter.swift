@@ -33,7 +33,7 @@ class ListPresenter: ListInteractorOutputProtocol {
     }
     
     func showPhotoDetailFromIdentifier(photo: Double) {
-        //listWireFrame.showPhotoDetailFromIdentifier(photo)
+        listWireFrame.showPhotoDetailFromIdentifier(photo)
     }
     
     private func convert(picturesModel: [PictureModel]) -> [ListModel] {

@@ -11,31 +11,34 @@ import CoreData
 
 class CoreDataStore {
 
-    var persistentStoreCoordinator : NSPersistentStoreCoordinator!
-    var managedObjectModel : NSManagedObjectModel!
-    var managedObjectContext : NSManagedObjectContext!
+    private var persistentStoreCoordinator : NSPersistentStoreCoordinator!
+    private var managedObjectModel : NSManagedObjectModel!
+    private var managedObjectContext : NSManagedObjectContext!
     
     init() {
         
-        managedObjectModel = NSManagedObjectModel.mergedModelFromBundles(nil)
-        persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel!)
+        guard let modelURL = NSBundle.mainBundle().URLForResource("PicturesDataModel", withExtension: "momd") else {
+            fatalError("Error loading model from bundle")
+        }
         
-        let domains = NSSearchPathDomainMask.UserDomainMask
-        let directory = NSSearchPathDirectory.DocumentDirectory
+        guard let mom = NSManagedObjectModel(contentsOfURL: modelURL) else {
+            fatalError("Error initializing mom from \(modelURL)")
+        }
         
-        let applicationDocumentsDirectory : AnyObject = NSFileManager.defaultManager().URLsForDirectory(directory, inDomains: domains).last!
-        let options = [NSMigratePersistentStoresAutomaticallyOption : true, NSInferMappingModelAutomaticallyOption : true]
+        managedObjectModel = mom
+        persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
+        
+        let applicationDocumentsDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).last!
         let storeURL = applicationDocumentsDirectory.URLByAppendingPathComponent("MostPopularPhotos.sqlite")
         
         do {
-            try persistentStoreCoordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: options)
+            try persistentStoreCoordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: nil)
         } catch let error as NSError {
             print(error.localizedDescription)
         }
         
-        managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
+        managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
-        managedObjectContext.undoManager = nil
     }
     
     func fetchPicturesEntriesWithPredicate(predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?, completionBlock: ([PictureDataModel]) -> ()) {
@@ -67,18 +70,17 @@ class CoreDataStore {
     
     func newPictureDataModel() -> PictureDataModel {
         
-        let entityDescription = NSEntityDescription.entityForName("PictureDataModel", inManagedObjectContext: managedObjectContext!)
-        let newEntry = NSManagedObject(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext) as! PictureDataModel
-        return newEntry
+        let entity = NSEntityDescription.insertNewObjectForEntityForName(String(PictureDataModel), inManagedObjectContext: managedObjectContext)
+        return entity as! PictureDataModel
     }
     
     func save() {
         
         do {
-            try managedObjectContext?.save()
+            try managedObjectContext.save()
         }
         catch let error as NSError {
-            print(error.localizedDescription)
+            fatalError(error.localizedDescription)
         }
     }
 }

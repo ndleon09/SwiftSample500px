@@ -10,6 +10,8 @@ import UIKit
 
 class ListWireFrame: ListWireFrameProtocol {
     
+    var rootWireFrame: RootWireFrame!
+    
     func presentListModuleFromWindow(window : UIWindow) {
         
         let networkService = NetworkingServiceImp()
@@ -33,10 +35,12 @@ class ListWireFrame: ListWireFrameProtocol {
         
         viewController.listPresenter = listPresenter
         
-        RootWireFrame().showRootViewController(viewController, inWindow: window)
+        rootWireFrame.showRootViewController(viewController, inWindow: window)
     }
     
     func showPhotoDetailFromIdentifier(photo: Double) {
-        //detailWireFrame?.presentDetailInterfaceFromViewController((rootWireFrame?.navigationController)!, photo: photo)
+        
+        let detailWireFrame = DetailWireFrame()
+        detailWireFrame.presentDetailModuleInNavigationController(rootWireFrame.rootViewController, photo: photo)
     }
 }

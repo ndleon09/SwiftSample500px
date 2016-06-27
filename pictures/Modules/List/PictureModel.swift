@@ -28,18 +28,18 @@ class PictureModel {
     
     init(dictionary: NSDictionary) {
         
-        self.id = dictionary["id"] as? Double
-        self.image = dictionary["image_url"] as? String
-        self.name = dictionary["name"] as? String
-        self.detailText = dictionary["description"] as? String
-        self.rating = dictionary["rating"] as? Double
-        self.camera = dictionary["camera"] as? String
-        self.latitude = dictionary["latitude"] as? Double
-        self.longitude = dictionary["longitude"] as? Double
+        id = dictionary["id"] as? Double
+        image = dictionary["image_url"] as? String
+        name = dictionary["name"] as? String
+        detailText = dictionary["description"] as? String
+        rating = dictionary["rating"] as? Double
+        camera = dictionary["camera"] as? String
+        latitude = dictionary["latitude"] as? Double
+        longitude = dictionary["longitude"] as? Double
         
         let userName = dictionary.valueForKeyPath("user.fullname") as? String
         let userImageName = dictionary.valueForKeyPath("user.avatars.large.https") as? String
-        self.user = UserModel(image: userImageName, name: userName)
+        user = UserModel(image: userImageName, name: userName)
     }
     
     init(coreDataDictionary: [String: AnyObject]) {

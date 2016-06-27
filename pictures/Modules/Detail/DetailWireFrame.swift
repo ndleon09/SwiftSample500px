@@ -9,19 +9,27 @@
 import UIKit
 
 class DetailWireFrame: NSObject {
-
-    var detailPresenter : DetailPresenter?
-    var presentedNavigationController : UINavigationController?
     
-    func presentDetailInterfaceFromViewController(presentedNavigationController: UINavigationController, photo: Double) {
+    func presentDetailModuleInNavigationController(navigationController: UINavigationController, photo: Double) {
         
+        let detailPresenter = DetailPresenter()
+        let detailInteractor = DetailInteractor()
+        let detailDataManager = DetailDataManager()
+        let coreDataManager = CoreDataStore()
         let viewController = DetailViewController()
-        viewController.detailPresenter = self.detailPresenter
         
-        presentedNavigationController.pushViewController(viewController, animated: true)
-        self.presentedNavigationController = presentedNavigationController
+        detailDataManager.coreDataStore = coreDataManager
         
-        self.detailPresenter?.detailView = viewController
-        self.detailPresenter?.loadDetailFromIdentifier(photo)
+        detailInteractor.detailPresenter = detailPresenter
+        detailInteractor.detailDataManager = detailDataManager
+        
+        detailPresenter.detailWireFrame = self
+        detailPresenter.detailInteractor = detailInteractor
+        detailPresenter.detailView = viewController
+        detailPresenter.loadDetailFromIdentifier(photo)
+        
+        viewController.detailPresenter = detailPresenter
+        
+        navigationController.pushViewController(viewController, animated: true)
     }
 }
