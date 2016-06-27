@@ -12,9 +12,12 @@ class ListItem: ItemProtocol {
     
     var drawer: DrawerProtocol
     var model: ListModel
+    var height: Float
     
     init(model: ListModel) {
+        
         self.model = model
         drawer = ListDrawer()
+        height = 44.0
     }
 }

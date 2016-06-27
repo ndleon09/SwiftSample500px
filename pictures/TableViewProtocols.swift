@@ -12,6 +12,7 @@ import UIKit
 protocol ItemProtocol {
     
     var drawer: DrawerProtocol { get set }
+    var height: Float { get set }
 }
 
 protocol DrawerProtocol {

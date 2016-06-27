@@ -8,14 +8,24 @@
 
 import Foundation
 
-class DetailDataManager: NSObject {
+class DetailDataManager: DetailDataManagerProtocol {
     
     var coreDataStore : CoreDataStore!
     
-    func findDetailPhoto(photo: Double, completion: (PictureDataModel?) -> ()) {
+    func findDetailPhoto(identifier: Double, completion: (PictureModel?) -> ()) {
         
-        coreDataStore.findPicture(photo, completion: { picture in
-            completion(picture)
+        coreDataStore.findPicture(identifier, completion: { object in
+            
+            if let managedObject = object {
+                let keys = Array(managedObject.entity.attributesByName.keys)
+                let dictionary = managedObject.dictionaryWithValuesForKeys(keys)
+                let picture = PictureModel(coreDataDictionary: dictionary)
+                completion(picture)
+            }
+            else {
+                completion(nil)
+            }
+            
         })
     }
 }

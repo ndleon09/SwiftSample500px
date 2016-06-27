@@ -8,35 +8,35 @@
 
 import Foundation
 
-class DetailInteractor: DetailInteractorInput {
+class DetailInteractor: DetailInteractorInputProtocol {
 
-    var detailPresenter : DetailInteractorOutput!
-    var detailDataManager : DetailDataManager!
+    var detailPresenter : DetailInteractorOutputProtocol!
+    var detailDataManager : DetailDataManagerProtocol!
     
     func findDetailPhoto(identifier: Double) {
         
         detailDataManager.findDetailPhoto(identifier, completion: { picture in
             
-            let detailModel = self.detailModelFromPictureDataModel(picture)
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                self.detailPresenter.foundDetailPhoto(detailModel)
-            })
+            let detailModel = self.detailModelFromPictureModel(picture)
+            self.detailPresenter.foundDetailPhoto(detailModel)
         })
     }
     
-    func detailModelFromPictureDataModel(pictureDataModel: PictureDataModel?) -> DetailModel? {
+    private func detailModelFromPictureModel(pictureModel: PictureModel?) -> DetailModel? {
         
-        if let dataModel = pictureDataModel {
+        if let picture = pictureModel {
             
             let detailModel = DetailModel()
-            detailModel.name = dataModel.name
-            detailModel.camera = dataModel.camera
-            detailModel.descriptionText = dataModel.detailText
-            detailModel.userName = dataModel.userName
-            detailModel.userImage = NSURL(string: dataModel.userImage!)
-            detailModel.latitude = dataModel.latitude?.doubleValue
-            detailModel.longitude = dataModel.longitude?.doubleValue
+            detailModel.name = picture.name
+            detailModel.camera = picture.camera
+            detailModel.descriptionText = picture.detailText
+            detailModel.latitude = picture.latitude
+            detailModel.longitude = picture.longitude
+            
+            detailModel.userName = picture.user?.name
+            if let image = picture.user?.image {
+                detailModel.userImage = NSURL(string: image)
+            }
             
             return detailModel
         }

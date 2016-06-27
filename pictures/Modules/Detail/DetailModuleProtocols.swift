@@ -8,10 +8,17 @@
 
 import Foundation
 
-protocol DetailInteractorInput {
+protocol DetailDataManagerProtocol: class {
+    
+    func findDetailPhoto(identifier: Double, completion: (PictureModel?) -> ())
+}
+
+protocol DetailInteractorInputProtocol: class {
+    
     func findDetailPhoto(identifier: Double)
 }
 
-protocol DetailInteractorOutput {
+protocol DetailInteractorOutputProtocol: class {
+    
     func foundDetailPhoto(detailModel: DetailModel?)
 }

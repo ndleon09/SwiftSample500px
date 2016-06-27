@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailPresenter: NSObject, DetailInteractorOutput {
+class DetailPresenter: DetailInteractorOutputProtocol {
 
     var detailWireFrame : DetailWireFrame!
     var detailInteractor : DetailInteractor!
