@@ -9,11 +9,10 @@
 import UIKit
 import AlamofireImage
 
-let PhotoCellIdentifier : String = "PhotoCell"
-
 class ListViewController: UIViewController, ListViewInterfaceProtocol {
 
-    var listPresenter : ListPresenter!
+    var listPresenter : ListPresenter?
+    
     var mostPopularPhotos : [ListModel] = []
     
     var tableView : UITableView!
@@ -30,20 +29,19 @@ class ListViewController: UIViewController, ListViewInterfaceProtocol {
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(loadData), forControlEvents: .ValueChanged)
         
-        tableView = UITableView(frame: self.view.frame, style: UITableViewStyle.Plain)
+        tableView = UITableView(frame: self.view.frame, style: .Plain)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = UIColor.whiteColor()
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        tableView.addSubview(self.refreshControl!)
-        tableView.registerClass(ListTableViewCell.self, forCellReuseIdentifier: PhotoCellIdentifier)
+        tableView.separatorStyle = .None
+        tableView.addSubview(refreshControl!)
         view.addSubview(self.tableView!)
         
         loadData()
     }
     
     func loadData() {
-        listPresenter.updateView()
+        listPresenter?.updateView()
     }
     
     // MARK: Implement ListViewInterface protocol
@@ -92,7 +90,7 @@ extension ListViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let listModel = mostPopularPhotos[indexPath.row]
-        listPresenter.showPhotoDetailFromIdentifier(listModel.id!)
+        listPresenter?.showPhotoDetailFromIdentifier(listModel.id!)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

@@ -10,14 +10,14 @@ import Foundation
 
 class ListInteractor: ListInteractorInputProtocol {
 
-    var dataManager : ListDataManagerProtocol!
-    var output : ListInteractorOutputProtocol!
+    var dataManager : ListDataManagerProtocol?
+    var output : ListInteractorOutputProtocol?
     
     func findMostPopularPhotos() {
         
-        dataManager.findMostPopularPictures { photos in
+        dataManager?.findMostPopularPictures { photos in
             
-            self.output.foundMostPopularPhotos(photos)
+            self.output?.foundMostPopularPhotos(photos)
         }
     }
 }
