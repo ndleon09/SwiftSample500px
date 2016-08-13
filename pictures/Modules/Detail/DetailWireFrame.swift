@@ -15,10 +15,10 @@ class DetailWireFrame: DetailWireFrameProtocol {
         let detailPresenter = DetailPresenter()
         let detailInteractor = DetailInteractor()
         let detailDataManager = DetailDataManager()
-        let coreDataManager = CoreDataStore()
+        let persistenceLayer = PersistenceLayer()
         let viewController = DetailViewController()
         
-        detailDataManager.coreDataStore = coreDataManager
+        detailDataManager.persistenceLayer = persistenceLayer
         
         detailInteractor.detailPresenter = detailPresenter
         detailInteractor.detailDataManager = detailDataManager

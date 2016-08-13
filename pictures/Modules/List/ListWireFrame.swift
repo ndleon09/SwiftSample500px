@@ -15,7 +15,7 @@ class ListWireFrame: ListWireFrameProtocol {
     func presentListModuleFromWindow(window : UIWindow) {
         
         let networkService = NetworkingServiceImp()
-        let coreDataStore = CoreDataStore()
+        let persistenceLayer = PersistenceLayer()
         
         let listPresenter = ListPresenter()
         let listDataManager = ListDataManager()
@@ -28,7 +28,7 @@ class ListWireFrame: ListWireFrameProtocol {
         listPresenter.listView = viewController
         
         listDataManager.networkService = networkService
-        listDataManager.coreDataStore = coreDataStore
+        listDataManager.persistenceLayer = persistenceLayer
         
         listInteractor.dataManager = listDataManager
         listInteractor.output = listPresenter

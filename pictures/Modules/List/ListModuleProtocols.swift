@@ -52,7 +52,7 @@ protocol ListInteractorOutputProtocol: class {
 protocol ListDataManagerProtocol: class {
     
     var networkService : NetworkingService? { get }
-    var coreDataStore : CoreDataStore? { get }
+    var persistenceLayer : PersistenceLayerProtocol? { get }
     
     func findMostPopularPictures(completion: ([PictureModel]) -> ())
 }

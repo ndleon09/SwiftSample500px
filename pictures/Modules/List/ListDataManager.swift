@@ -11,7 +11,7 @@ import Foundation
 class ListDataManager: ListDataManagerProtocol {
 
     var networkService : NetworkingService?
-    var coreDataStore : CoreDataStore?
+    var persistenceLayer : PersistenceLayerProtocol?
     
     func findMostPopularPictures(completion: ([PictureModel]) -> ()) {
         
@@ -39,7 +39,7 @@ class ListDataManager: ListDataManagerProtocol {
     private func findMostPopularPicturesInLocal(completion: ([PictureModel]) -> ()) {
         
         let sortDescriptor = NSSortDescriptor(key: "rating", ascending: false)
-        coreDataStore?.fetchPicturesEntriesWithPredicate(nil, sortDescriptors: [sortDescriptor], completionBlock: { objects in
+        persistenceLayer?.fetchPicturesEntriesWithPredicate(nil, sortDescriptors: [sortDescriptor], completionBlock: { objects in
             
             var pictureModels: [PictureModel] = []
             for object in objects {
@@ -60,11 +60,11 @@ class ListDataManager: ListDataManagerProtocol {
         
         for picture in pictures {
             
-            coreDataStore?.findPicture(picture.id!, completion: { object in
+            persistenceLayer?.findPicture(picture.id!, completion: { object in
                 
                 if object == nil {
                     
-                    let pictureDataModel = self.coreDataStore?.newPictureDataModel()
+                    let pictureDataModel = self.persistenceLayer?.newPictureDataModel()
                     pictureDataModel?.id = picture.id
                     pictureDataModel?.name = picture.name
                     pictureDataModel?.image = picture.image
@@ -76,7 +76,7 @@ class ListDataManager: ListDataManagerProtocol {
                     pictureDataModel?.latitude = picture.latitude
                     pictureDataModel?.longitude = picture.longitude
                     
-                    self.coreDataStore?.save()
+                    self.persistenceLayer?.save()
                 }
             })
         }

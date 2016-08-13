@@ -9,7 +9,15 @@
 import Foundation
 import CoreData
 
-class CoreDataStore {
+protocol PersistenceLayerProtocol: class {
+    
+    func fetchPicturesEntriesWithPredicate(predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?, completionBlock: ([PictureDataModel]) -> ())
+    func findPicture(id: Double, completion: (PictureDataModel?) -> ())
+    func newPictureDataModel() -> PictureDataModel
+    func save()
+}
+
+class PersistenceLayer: PersistenceLayerProtocol {
 
     private var persistentStoreCoordinator : NSPersistentStoreCoordinator!
     private var managedObjectModel : NSManagedObjectModel!
