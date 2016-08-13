@@ -16,7 +16,6 @@ class ListInteractor: ListInteractorInputProtocol {
     func findMostPopularPhotos() {
         
         dataManager?.findMostPopularPictures { photos in
-            
             self.output?.foundMostPopularPhotos(photos)
         }
     }

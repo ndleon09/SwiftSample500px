@@ -16,7 +16,7 @@
 		52262EE21BEAAB1400BC8A16 /* ListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EE11BEAAB1400BC8A16 /* ListPresenter.swift */; };
 		52262EE71BEAAEBB00BC8A16 /* ListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EE61BEAAEBB00BC8A16 /* ListInteractor.swift */; };
 		52262EED1BEAB18800BC8A16 /* RootWireFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EEC1BEAB18800BC8A16 /* RootWireFrame.swift */; };
-		52262EF01BEAC00800BC8A16 /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EEF1BEAC00800BC8A16 /* CoreDataStore.swift */; };
+		52262EF01BEAC00800BC8A16 /* PersistenceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EEF1BEAC00800BC8A16 /* PersistenceLayer.swift */; };
 		52262EF61BEAC2C100BC8A16 /* ListDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EF51BEAC2C100BC8A16 /* ListDataManager.swift */; };
 		52262EF91BEAC61300BC8A16 /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EF81BEAC61300BC8A16 /* NetworkingService.swift */; };
 		52262EFB1BEBEF8B00BC8A16 /* DetailDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EFA1BEBEF8B00BC8A16 /* DetailDataManager.swift */; };
@@ -67,7 +67,7 @@
 		52262EE11BEAAB1400BC8A16 /* ListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListPresenter.swift; path = Modules/List/ListPresenter.swift; sourceTree = "<group>"; };
 		52262EE61BEAAEBB00BC8A16 /* ListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListInteractor.swift; path = Modules/List/ListInteractor.swift; sourceTree = "<group>"; };
 		52262EEC1BEAB18800BC8A16 /* RootWireFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootWireFrame.swift; sourceTree = "<group>"; };
-		52262EEF1BEAC00800BC8A16 /* CoreDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
+		52262EEF1BEAC00800BC8A16 /* PersistenceLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceLayer.swift; sourceTree = "<group>"; };
 		52262EF51BEAC2C100BC8A16 /* ListDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListDataManager.swift; path = Modules/List/ListDataManager.swift; sourceTree = "<group>"; };
 		52262EF81BEAC61300BC8A16 /* NetworkingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		52262EFA1BEBEF8B00BC8A16 /* DetailDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailDataManager.swift; path = Modules/Detail/DetailDataManager.swift; sourceTree = "<group>"; };
@@ -241,7 +241,7 @@
 		52262EEE1BEABFF500BC8A16 /* Store */ = {
 			isa = PBXGroup;
 			children = (
-				52262EEF1BEAC00800BC8A16 /* CoreDataStore.swift */,
+				52262EEF1BEAC00800BC8A16 /* PersistenceLayer.swift */,
 				52335BDC1D1F0F2F00435E3F /* PictureDataModel+CoreDataProperties.swift */,
 				52335BDD1D1F0F2F00435E3F /* PictureDataModel.swift */,
 				522E8E8D1BEBC3990018ACE9 /* PicturesDataModel.xcdatamodeld */,
@@ -554,7 +554,7 @@
 				525D81621D21BDFC00281175 /* DetailLocationItem.swift in Sources */,
 				52262EF61BEAC2C100BC8A16 /* ListDataManager.swift in Sources */,
 				522E8E8F1BEBC3990018ACE9 /* PicturesDataModel.xcdatamodeld in Sources */,
-				52262EF01BEAC00800BC8A16 /* CoreDataStore.swift in Sources */,
+				52262EF01BEAC00800BC8A16 /* PersistenceLayer.swift in Sources */,
 				522E8E841BEBB1950018ACE9 /* DetailViewController.swift in Sources */,
 				525D81601D21BB1400281175 /* PictureModel.swift in Sources */,
 				52335BDE1D1F0F2F00435E3F /* PictureDataModel+CoreDataProperties.swift in Sources */,

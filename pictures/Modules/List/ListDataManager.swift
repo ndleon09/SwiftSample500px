@@ -23,10 +23,8 @@ class ListDataManager: ListDataManagerProtocol {
         
         networkService?.findMostPopularPictures { photos in
             
-            var pictureModels : [PictureModel] = []
-            
+            var pictureModels = [PictureModel]()
             for photoDictionary in photos {
-                
                 let photo = PictureModel(dictionary: photoDictionary as! NSDictionary)
                 pictureModels.append(photo)
             }
