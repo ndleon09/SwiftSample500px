@@ -7,28 +7,19 @@
 //
 
 import Foundation
-import UIKit
+import TableViewKit
 import AlamofireImage
 
-class ListDrawer: DrawerProtocol {
+class ListDrawer: CellDrawer {
     
-    func cell(forTableView tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell {
-        
-        let identifier = "PhotoCellIdentifier"
-        
-        var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
-        if cell == nil {
-            cell = ListTableViewCell(style: .default, reuseIdentifier: identifier)
-        }
-        
-        return cell!
-    }
+    static var type: CellType = CellType.nib(UINib(nibName: String(describing: ListTableViewCell.self), bundle: nil), ListTableViewCell.self)
     
-    func draw(cell: UITableViewCell, withItem item: ItemProtocol) {
+    static func draw(_ cell: UITableViewCell, with item: Any) {
         
         let pictureCell = cell as! ListTableViewCell
         let listItem = item as! ListItem
         
+        pictureCell.selectionStyle = .none
         pictureCell.nameLabel?.text = listItem.model.imageName
         pictureCell.ratingLabel?.text = String(listItem.model.rating!)
         
@@ -36,6 +27,7 @@ class ListDrawer: DrawerProtocol {
             return
         }
         
-        pictureCell.pictureImageView.af_setImage(withURL: url, placeholderImage: UIImage(named: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.5), runImageTransitionIfCached: true, completion: nil)
+        let placeholder = UIImage(named: "placeholder")
+        pictureCell.pictureImageView.af_setImage(withURL: url, placeholderImage: placeholder, filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.5), runImageTransitionIfCached: false, completion: nil)
     }
 }

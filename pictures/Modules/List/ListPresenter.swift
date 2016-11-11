@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListPresenter: ListInteractorOutputProtocol {
+class ListPresenter: ListPresenterProtocol {
 
     var listInteractor : ListInteractorInputProtocol?
     var listWireFrame : ListWireFrameProtocol?
@@ -18,6 +18,13 @@ class ListPresenter: ListInteractorOutputProtocol {
         listView?.showLoadingIndicator()
         listInteractor?.findMostPopularPhotos()
     }
+    
+    func showPhotoDetail(identifier: Double) {
+        listWireFrame?.showPhotoDetail(identifier: identifier)
+    }
+}
+
+extension ListPresenter: ListInteractorOutputProtocol {
     
     func foundMostPopularPhotos(mostPopularPhotos: [PictureModel]) {
         
@@ -29,10 +36,6 @@ class ListPresenter: ListInteractorOutputProtocol {
         else {
             listView?.showMostPopularPhotos(photos: convert(picturesModel: mostPopularPhotos))
         }
-    }
-    
-    func showPhotoDetail(identifier: Double) {
-        listWireFrame?.showPhotoDetail(identifier: identifier)
     }
     
     fileprivate func convert(picturesModel: [PictureModel]) -> [ListModel] {

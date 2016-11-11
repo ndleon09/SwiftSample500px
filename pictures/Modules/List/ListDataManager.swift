@@ -14,8 +14,6 @@ class ListDataManager: ListDataManagerProtocol {
     var persistenceLayer : PersistenceLayerProtocol?
     
     func findMostPopularPictures(completion: @escaping ([PictureModel]) -> ()) {
-        
-        findMostPopularPicturesInLocal(completion: completion)
         findMostPopularPicturesInNetwork(completion: completion)
     }
     

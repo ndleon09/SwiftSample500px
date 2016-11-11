@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import TableViewKit
 import AlamofireImage
 
 class ListViewController: UIViewController, ListViewInterfaceProtocol {
 
-    var listPresenter : ListPresenter?
-    var mostPopularPhotos : [ListModel] = []
+    var listPresenter : ListPresenterProtocol?
     
     var tableView : UITableView!
+    var tableViewManager: TableViewManager!
     var refreshControl : UIRefreshControl!
     
     // MARK: Life view cycle
@@ -29,12 +30,13 @@ class ListViewController: UIViewController, ListViewInterfaceProtocol {
         refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
         
         tableView = UITableView(frame: self.view.frame, style: .plain)
-        tableView.dataSource = self
-        tableView.delegate = self
         tableView.backgroundColor = UIColor.white
         tableView.separatorStyle = .none
         tableView.addSubview(refreshControl!)
         view.addSubview(self.tableView!)
+        
+        tableViewManager = TableViewManager(tableView: tableView)
+        tableViewManager.animation = .none
         
         loadData()
     }
@@ -60,12 +62,12 @@ class ListViewController: UIViewController, ListViewInterfaceProtocol {
     }
     
     func showMostPopularPhotos(photos: [ListModel]) {
-        
-        mostPopularPhotos = photos
-        tableView.reloadData()
+        let section = ListSection(models: photos, presenter: listPresenter)
+        tableViewManager.sections.replace(with: [section])
     }
 }
 
+/*
 extension ListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -96,4 +98,5 @@ extension ListViewController: UITableViewDelegate {
         return 320.0
     }
 }
+ */
 

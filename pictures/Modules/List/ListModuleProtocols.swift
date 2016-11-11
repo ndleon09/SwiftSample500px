@@ -21,7 +21,7 @@ protocol ListWireFrameProtocol: class {
 // ListViewController
 protocol ListViewInterfaceProtocol: class {
     
-    var listPresenter : ListPresenter? { get }
+    var listPresenter : ListPresenterProtocol? { get }
     
     func showLoadingIndicator()
     func hideLoadingIndicator()
@@ -39,11 +39,17 @@ protocol ListInteractorInputProtocol: class {
 }
 
 // Presenter
-protocol ListInteractorOutputProtocol: class {
+protocol ListPresenterProtocol: class {
     
-    weak var listView: ListViewInterfaceProtocol? { get }
-    var listWireFrame: ListWireFrameProtocol? { get }
-    var listInteractor: ListInteractorInputProtocol? { get }
+    var listInteractor : ListInteractorInputProtocol? { get set }
+    var listWireFrame : ListWireFrameProtocol? { get set }
+    var listView : ListViewInterfaceProtocol? { get set }
+    
+    func updateView()
+    func showPhotoDetail(identifier: Double)
+}
+
+protocol ListInteractorOutputProtocol: class {
     
     func foundMostPopularPhotos(mostPopularPhotos : [PictureModel])
 }
