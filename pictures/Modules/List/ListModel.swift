@@ -11,7 +11,7 @@ import UIKit
 struct ListModel {
     
     let id : Double?
-    let imageURL : NSURL?
+    let imageURL : URL?
     let imageName : String?
     let rating : Double?
 }

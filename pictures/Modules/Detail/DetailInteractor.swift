@@ -15,14 +15,14 @@ class DetailInteractor: DetailInteractorInputProtocol {
     
     func findDetailPhoto(identifier: Double) {
         
-        detailDataManager.findDetailPhoto(identifier, completion: { picture in
+        detailDataManager.findDetailPhoto(identifier: identifier, completion: { picture in
             
             let detailModel = self.detailModelFromPictureModel(picture)
-            self.detailPresenter.foundDetailPhoto(detailModel)
+            self.detailPresenter.foundDetailPhoto(detailModel: detailModel)
         })
     }
     
-    private func detailModelFromPictureModel(pictureModel: PictureModel?) -> DetailModel? {
+    fileprivate func detailModelFromPictureModel(_ pictureModel: PictureModel?) -> DetailModel? {
         
         if let picture = pictureModel {
             
@@ -35,7 +35,7 @@ class DetailInteractor: DetailInteractorInputProtocol {
             
             detailModel.userName = picture.user?.name
             if let image = picture.user?.image {
-                detailModel.userImage = NSURL(string: image)
+                detailModel.userImage = URL(string: image)
             }
             
             return detailModel

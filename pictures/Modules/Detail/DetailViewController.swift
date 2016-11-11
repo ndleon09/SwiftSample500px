@@ -22,18 +22,18 @@ class DetailViewController: UIViewController, DetailViewProtocol {
 
         title = "Detail"
         
-        tableView = UITableView(frame: self.view.frame, style: .Grouped)
+        tableView = UITableView(frame: self.view.frame, style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = UIColor.whiteColor()
+        tableView.backgroundColor = UIColor.white
         view.addSubview(self.tableView)
     }
     
     func showNotFoundMessage() {
         
-        let alertController = UIAlertController(title: "Error", message: "Picture not found", preferredStyle: .Alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-        self.presentViewController(alertController, animated: true, completion: nil)
+        let alertController = UIAlertController(title: "Error", message: "Picture not found", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func showDetailPicture(detailModel: DetailModel) {
@@ -70,12 +70,12 @@ class DetailViewController: UIViewController, DetailViewProtocol {
 
 extension DetailViewController: UITableViewDataSource {
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return self.items.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let detailItem = items[indexPath.row]
         
@@ -85,7 +85,7 @@ extension DetailViewController: UITableViewDataSource {
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         let detailItem = items[indexPath.row]
         return CGFloat(detailItem.height)

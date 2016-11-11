@@ -11,54 +11,54 @@ import CoreData
 
 protocol PersistenceLayerProtocol: class {
     
-    func fetchPicturesEntriesWithPredicate(predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?, completionBlock: ([PictureDataModel]) -> ())
-    func findPicture(id: Double, completion: (PictureDataModel?) -> ())
+    func fetchPicturesEntries(predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?, completionBlock: @escaping ([PictureDataModel]) -> Void)
+    func findPicture(id: Double, completion: @escaping (PictureDataModel?) -> Void)
     func newPictureDataModel() -> PictureDataModel
     func save()
 }
 
 class PersistenceLayer: PersistenceLayerProtocol {
 
-    private var persistentStoreCoordinator : NSPersistentStoreCoordinator!
-    private var managedObjectModel : NSManagedObjectModel!
-    private var managedObjectContext : NSManagedObjectContext!
+    fileprivate var persistentStoreCoordinator : NSPersistentStoreCoordinator!
+    fileprivate var managedObjectModel : NSManagedObjectModel!
+    fileprivate var managedObjectContext : NSManagedObjectContext!
     
     init() {
         
-        guard let modelURL = NSBundle.mainBundle().URLForResource("PicturesDataModel", withExtension: "momd") else {
+        guard let modelURL = Bundle.main.url(forResource: "PicturesDataModel", withExtension: "momd") else {
             fatalError("Error loading model from bundle")
         }
         
-        guard let mom = NSManagedObjectModel(contentsOfURL: modelURL) else {
+        guard let mom = NSManagedObjectModel(contentsOf: modelURL) else {
             fatalError("Error initializing mom from \(modelURL)")
         }
         
         managedObjectModel = mom
         persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
         
-        let applicationDocumentsDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).last!
-        let storeURL = applicationDocumentsDirectory.URLByAppendingPathComponent("MostPopularPhotos.sqlite")
+        let applicationDocumentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last!
+        let storeURL = applicationDocumentsDirectory.appendingPathComponent("MostPopularPhotos.sqlite")
         
         do {
-            try persistentStoreCoordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: nil)
+            try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: nil)
         } catch let error as NSError {
             print(error.localizedDescription)
         }
         
-        managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
     }
     
-    func fetchPicturesEntriesWithPredicate(predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?, completionBlock: ([PictureDataModel]) -> ()) {
+    func fetchPicturesEntries(predicate: NSPredicate?, sortDescriptors: [NSSortDescriptor]?, completionBlock: @escaping ([PictureDataModel]) -> Void) {
         
-        let fetchRequest = NSFetchRequest(entityName: "PictureDataModel")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PictureDataModel")
         fetchRequest.predicate = predicate
         fetchRequest.sortDescriptors = sortDescriptors
         
-        managedObjectContext.performBlock {
+        managedObjectContext.perform {
             
             do {
-                let queryResults = try self.managedObjectContext.executeFetchRequest(fetchRequest)
+                let queryResults = try self.managedObjectContext.fetch(fetchRequest)
                 let managedResults = queryResults as! [PictureDataModel]
                 completionBlock(managedResults)
             }
@@ -68,17 +68,17 @@ class PersistenceLayer: PersistenceLayerProtocol {
         }
     }
     
-    func findPicture(id: Double, completion: (PictureDataModel?) -> ()) {
+    func findPicture(id: Double, completion: @escaping (PictureDataModel?) -> Void) {
         
         let predicate = NSPredicate(format: "id == %lf", id)
-        fetchPicturesEntriesWithPredicate(predicate, sortDescriptors: nil) { pictures in
+        fetchPicturesEntries(predicate: predicate, sortDescriptors: nil, completionBlock: { pictures in
             completion(pictures.first)
-        }
+        })
     }
     
     func newPictureDataModel() -> PictureDataModel {
         
-        let entity = NSEntityDescription.insertNewObjectForEntityForName(String(PictureDataModel), inManagedObjectContext: managedObjectContext)
+        let entity = NSEntityDescription.insertNewObject(forEntityName: String(describing: PictureDataModel.self), into: managedObjectContext)
         return entity as! PictureDataModel
     }
     

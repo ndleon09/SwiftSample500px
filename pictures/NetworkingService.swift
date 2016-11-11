@@ -20,9 +20,9 @@ extension String {
     
     func stringByAddingPercentEncodingForURLQueryValue() -> String? {
         
-        let characterSet = NSMutableCharacterSet.alphanumericCharacterSet()
-        characterSet.addCharactersInString("-._~")
-        return self.stringByAddingPercentEncodingWithAllowedCharacters(characterSet)
+        let characterSet = NSMutableCharacterSet.alphanumeric()
+        characterSet.addCharacters(in: "-._~")
+        return self.addingPercentEncoding(withAllowedCharacters: characterSet as CharacterSet)
     }
 }
 
@@ -44,31 +44,31 @@ extension Dictionary {
             return "\(percentEscapedKey)=\(percentEscapedValue)"
         }
         
-        return parameterArray.joinWithSeparator("&")
+        return parameterArray.joined(separator: "&")
     }
     
 }
 
 protocol NetworkingService {
     
-    func findMostPopularPictures(completion: ([AnyObject]) -> ())
+    func findMostPopularPictures(completion: @escaping ([AnyObject]) -> ())
 }
 
 class NetworkingServiceImp: NetworkingService {
 
-    private var baseURL = "https://api.500px.com/v1"
-    private let consumerKey = "FMEvCvHM8Ask8kF1BzJa9yEvznnmpHwYxME3S3dh"
+    fileprivate var baseURL = "https://api.500px.com/v1"
+    fileprivate let consumerKey = "FMEvCvHM8Ask8kF1BzJa9yEvznnmpHwYxME3S3dh"
     
-    func findMostPopularPictures(completion: ([AnyObject]) -> ()) {
+    func findMostPopularPictures(completion: @escaping ([AnyObject]) -> ()) {
         
         let parameters : [String:String] = ["feature": "popular", "sort": "rating", "sort_direction": "desc", "image_size": "440", "consumer_key": consumerKey]
-        let url = NSURL(string: "\(self.baseURL)/photos?\(parameters.stringFromHttpParameters())")
+        let url = URL(string: "\(self.baseURL)/photos?\(parameters.stringFromHttpParameters())")
         
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url!) { data, response, error in
+        let task = URLSession.shared.dataTask(with: url!, completionHandler: { data, response, error in
             
             if error == nil {
                 do {
-                    let dictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! [String: AnyObject]
+                    let dictionary = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! [String: AnyObject]
                     let photos = dictionary["photos"] as! [AnyObject]
                     completion(photos)
                 }
@@ -80,7 +80,7 @@ class NetworkingServiceImp: NetworkingService {
             else {
                 completion([])
             }
-        }
+        }) 
         task.resume()
     }
 }

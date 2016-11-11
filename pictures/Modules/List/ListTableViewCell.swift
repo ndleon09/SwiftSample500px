@@ -21,27 +21,27 @@ class ListTableViewCell: UITableViewCell {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.selectionStyle = UITableViewCellSelectionStyle.None
+        self.selectionStyle = UITableViewCellSelectionStyle.none
         
-        pictureImageView = UIImageView(frame: CGRectZero)
+        pictureImageView = UIImageView(frame: CGRect.zero)
         pictureImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(pictureImageView)
         
-        ratingLabel = UILabel(frame: CGRectZero)
+        ratingLabel = UILabel(frame: CGRect.zero)
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
-        ratingLabel.font = UIFont.systemFontOfSize(12)
-        ratingLabel.textColor = UIColor.whiteColor()
+        ratingLabel.font = UIFont.systemFont(ofSize: 12)
+        ratingLabel.textColor = UIColor.white
         contentView.addSubview(ratingLabel)
         
-        let blurEffect = UIBlurEffect(style: .Dark)
+        let blurEffect = UIBlurEffect(style: .dark)
         blurView = UIVisualEffectView(effect: blurEffect)
         blurView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(blurView)
         
-        nameLabel = UILabel(frame: CGRectZero)
+        nameLabel = UILabel(frame: CGRect.zero)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.textColor = UIColor.whiteColor()
-        nameLabel.font = UIFont.systemFontOfSize(14.0)
+        nameLabel.textColor = UIColor.white
+        nameLabel.font = UIFont.systemFont(ofSize: 14.0)
         nameLabel.numberOfLines = 1
         blurView.addSubview(nameLabel)
     }
@@ -49,27 +49,24 @@ class ListTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let pictureImageViewCenterX = NSLayoutConstraint(item: self.pictureImageView!, attribute: .CenterX, relatedBy: .Equal, toItem: self.contentView, attribute: .CenterX, multiplier: 1.0, constant: 0.0)
-        let pictureImageViewCenterY = NSLayoutConstraint(item: self.pictureImageView!, attribute: .CenterY, relatedBy: .Equal, toItem: self.contentView, attribute: .CenterY, multiplier: 1.0, constant: 0.0)
-        let pictureImageViewHeight = NSLayoutConstraint(item: self.pictureImageView!, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: CGRectGetHeight(self.frame) - 10)
-        let pictureImageViewWidth = NSLayoutConstraint(item: self.pictureImageView!, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: pictureImageViewHeight.constant)
+        let pictureImageViewCenterX = NSLayoutConstraint(item: self.pictureImageView!, attribute: .centerX, relatedBy: .equal, toItem: self.contentView, attribute: .centerX, multiplier: 1.0, constant: 0.0)
+        let pictureImageViewCenterY = NSLayoutConstraint(item: self.pictureImageView!, attribute: .centerY, relatedBy: .equal, toItem: self.contentView, attribute: .centerY, multiplier: 1.0, constant: 0.0)
+        let pictureImageViewHeight = NSLayoutConstraint(item: self.pictureImageView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: self.frame.height - 10)
+        let pictureImageViewWidth = NSLayoutConstraint(item: self.pictureImageView!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: pictureImageViewHeight.constant)
         
-        let ratingLabelTop = NSLayoutConstraint(item: self.ratingLabel!, attribute: .Top, relatedBy: .Equal, toItem: self.pictureImageView!, attribute: .Top, multiplier: 1.0, constant: 8.0)
-        let ratingLabelTrailing = NSLayoutConstraint(item: self.ratingLabel!, attribute: .Trailing, relatedBy: .Equal, toItem: self.pictureImageView!, attribute: .Trailing, multiplier: 1.0, constant: -8.0)
+        let ratingLabelTop = NSLayoutConstraint(item: self.ratingLabel!, attribute: .top, relatedBy: .equal, toItem: self.pictureImageView!, attribute: .top, multiplier: 1.0, constant: 8.0)
+        let ratingLabelTrailing = NSLayoutConstraint(item: self.ratingLabel!, attribute: .trailing, relatedBy: .equal, toItem: self.pictureImageView!, attribute: .trailing, multiplier: 1.0, constant: -8.0)
         
-        let blurViewLeading = NSLayoutConstraint(item: self.blurView!, attribute: .Leading, relatedBy: .Equal, toItem: self.pictureImageView!, attribute: .Leading, multiplier: 1.0, constant: 0.0)
-        let blurViewTrailing = NSLayoutConstraint(item: self.blurView!, attribute: .Trailing, relatedBy: .Equal, toItem: self.pictureImageView!, attribute: .Trailing, multiplier: 1.0, constant: 0.0)
-        let blurViewHeight = NSLayoutConstraint(item: self.blurView!, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 40.0)
-        let blurViewBottom = NSLayoutConstraint(item: self.blurView!, attribute: .Bottom, relatedBy: .Equal, toItem: self.pictureImageView!, attribute: .Bottom, multiplier: 1.0, constant: 0.0)
+        let blurViewLeading = NSLayoutConstraint(item: self.blurView!, attribute: .leading, relatedBy: .equal, toItem: self.pictureImageView!, attribute: .leading, multiplier: 1.0, constant: 0.0)
+        let blurViewTrailing = NSLayoutConstraint(item: self.blurView!, attribute: .trailing, relatedBy: .equal, toItem: self.pictureImageView!, attribute: .trailing, multiplier: 1.0, constant: 0.0)
+        let blurViewHeight = NSLayoutConstraint(item: self.blurView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 40.0)
+        let blurViewBottom = NSLayoutConstraint(item: self.blurView!, attribute: .bottom, relatedBy: .equal, toItem: self.pictureImageView!, attribute: .bottom, multiplier: 1.0, constant: 0.0)
         
-        let nameLabelCenterY = NSLayoutConstraint(item: self.nameLabel!, attribute: .CenterY, relatedBy: .Equal, toItem: self.blurView!, attribute: .CenterY, multiplier: 1.0, constant: 0.0)
-        let nameLabelLeading = NSLayoutConstraint(item: self.nameLabel!, attribute: .Leading, relatedBy: .Equal, toItem: self.blurView!, attribute: .Leading, multiplier: 1.0, constant: 10.0)
-        let nameLabelTrailing = NSLayoutConstraint(item: self.nameLabel!, attribute: .Trailing, relatedBy: .LessThanOrEqual, toItem: self.blurView!, attribute: .Trailing, multiplier: 1.0, constant: -10.0)
+        let nameLabelCenterY = NSLayoutConstraint(item: self.nameLabel!, attribute: .centerY, relatedBy: .equal, toItem: self.blurView!, attribute: .centerY, multiplier: 1.0, constant: 0.0)
+        let nameLabelLeading = NSLayoutConstraint(item: self.nameLabel!, attribute: .leading, relatedBy: .equal, toItem: self.blurView!, attribute: .leading, multiplier: 1.0, constant: 10.0)
+        let nameLabelTrailing = NSLayoutConstraint(item: self.nameLabel!, attribute: .trailing, relatedBy: .lessThanOrEqual, toItem: self.blurView!, attribute: .trailing, multiplier: 1.0, constant: -10.0)
         
-        self.contentView.addConstraint(pictureImageViewCenterX)
-        self.contentView.addConstraint(pictureImageViewCenterY)
-        self.contentView.addConstraint(pictureImageViewWidth)
-        self.contentView.addConstraint(pictureImageViewHeight)
+        self.contentView.addConstraints([pictureImageViewCenterX, pictureImageViewCenterY, pictureImageViewWidth, pictureImageViewHeight])
         self.contentView.addConstraint(ratingLabelTop)
         self.contentView.addConstraint(ratingLabelTrailing)
         self.contentView.addConstraint(blurViewLeading)

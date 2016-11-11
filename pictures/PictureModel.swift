@@ -37,12 +37,12 @@ class PictureModel {
         latitude = dictionary["latitude"] as? Double
         longitude = dictionary["longitude"] as? Double
         
-        let userName = dictionary.valueForKeyPath("user.fullname") as? String
-        let userImageName = dictionary.valueForKeyPath("user.avatars.large.https") as? String
+        let userName = dictionary.value(forKeyPath: "user.fullname") as? String
+        let userImageName = dictionary.value(forKeyPath: "user.avatars.large.https") as? String
         user = UserModel(image: userImageName, name: userName)
     }
     
-    init(coreDataDictionary: [String: AnyObject]) {
+    init(coreDataDictionary: [String: Any]) {
         
         id = coreDataDictionary["id"] as? Double
         image = coreDataDictionary["image"] as? String

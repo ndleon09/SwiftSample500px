@@ -27,21 +27,21 @@ class ListPresenter: ListInteractorOutputProtocol {
             listView?.showNoContentMessage()
         }
         else {
-            listView?.showMostPopularPhotos(convert(mostPopularPhotos))
+            listView?.showMostPopularPhotos(photos: convert(picturesModel: mostPopularPhotos))
         }
     }
     
-    func showPhotoDetailFromIdentifier(photo: Double) {
-        listWireFrame?.showPhotoDetailFromIdentifier(photo)
+    func showPhotoDetail(identifier: Double) {
+        listWireFrame?.showPhotoDetail(identifier: identifier)
     }
     
-    private func convert(picturesModel: [PictureModel]) -> [ListModel] {
+    fileprivate func convert(picturesModel: [PictureModel]) -> [ListModel] {
         
         var listModels: [ListModel] = []
         
         for picture in picturesModel {
             
-            let model = ListModel(id: picture.id, imageURL: NSURL(string: picture.image!), imageName: picture.name, rating: picture.rating)
+            let model = ListModel(id: picture.id, imageURL: URL(string: picture.image!), imageName: picture.name, rating: picture.rating)
             listModels.append(model)
         }
         

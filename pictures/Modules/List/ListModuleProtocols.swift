@@ -14,8 +14,8 @@ protocol ListWireFrameProtocol: class {
     
     var rootWireFrame: RootWireFrame? { get }
     
-    func presentListModuleFromWindow(window : UIWindow)
-    func showPhotoDetailFromIdentifier(photo: Double)
+    func presentListModule(window : UIWindow)
+    func showPhotoDetail(identifier: Double)
 }
 
 // ListViewController
@@ -54,5 +54,5 @@ protocol ListDataManagerProtocol: class {
     var networkService : NetworkingService? { get }
     var persistenceLayer : PersistenceLayerProtocol? { get }
     
-    func findMostPopularPictures(completion: ([PictureModel]) -> ())
+    func findMostPopularPictures(completion: @escaping ([PictureModel]) -> ())
 }

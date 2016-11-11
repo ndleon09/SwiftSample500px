@@ -10,7 +10,7 @@ import UIKit
 
 class DetailWireFrame: DetailWireFrameProtocol {
     
-    func presentDetailModuleInNavigationController(navigationController: UINavigationController, photo: Double) {
+    func presentDetailModule(in navigationController: UINavigationController, photo: Double) {
         
         let detailPresenter = DetailPresenter()
         let detailInteractor = DetailInteractor()
@@ -26,7 +26,7 @@ class DetailWireFrame: DetailWireFrameProtocol {
         detailPresenter.detailWireFrame = self
         detailPresenter.detailInteractor = detailInteractor
         detailPresenter.detailView = viewController
-        detailPresenter.loadDetailFromIdentifier(photo)
+        detailPresenter.loadDetailFromIdentifier(identifier: photo)
         
         viewController.detailPresenter = detailPresenter
         

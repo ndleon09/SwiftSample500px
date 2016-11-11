@@ -16,13 +16,13 @@ class DetailPresenter: DetailInteractorOutputProtocol {
     
     func loadDetailFromIdentifier(identifier: Double) {
         
-        detailInteractor.findDetailPhoto(identifier)
+        detailInteractor.findDetailPhoto(identifier: identifier)
     }
     
     func foundDetailPhoto(detailModel: DetailModel?) {
         
         if let model = detailModel {
-            detailView.showDetailPicture(model)
+            detailView.showDetailPicture(detailModel: model)
         }
         else {
             detailView.showNotFoundMessage()
