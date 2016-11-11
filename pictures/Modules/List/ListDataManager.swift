@@ -11,72 +11,68 @@ import Foundation
 class ListDataManager: ListDataManagerProtocol {
 
     var networkService : NetworkingService?
-    var coreDataStore : CoreDataStore?
+    var persistenceLayer : PersistenceLayerProtocol?
     
-    func findMostPopularPictures(completion: ([PictureModel]) -> ()) {
-        
-        findMostPopularPicturesInLocal(completion)
-        findMostPopularPicturesInNetwork(completion)
+    func findMostPopularPictures(completion: @escaping ([PictureModel]) -> ()) {
+        findMostPopularPicturesInNetwork(completion: completion)
     }
     
-    private func findMostPopularPicturesInNetwork(completion: ([PictureModel]) -> ()) {
+    fileprivate func findMostPopularPicturesInNetwork(completion: @escaping ([PictureModel]) -> ()) {
         
         networkService?.findMostPopularPictures { photos in
             
-            var pictureModels : [PictureModel] = []
-            
+            var pictureModels = [PictureModel]()
             for photoDictionary in photos {
-                
                 let photo = PictureModel(dictionary: photoDictionary as! NSDictionary)
                 pictureModels.append(photo)
             }
             
-            self.saveMostPopularPictures(pictureModels)
-            self.findMostPopularPicturesInLocal(completion)
+            self.saveMostPopularPictures(pictures: pictureModels)
+            self.findMostPopularPicturesInLocal(completion: completion)
         }
     }
     
-    private func findMostPopularPicturesInLocal(completion: ([PictureModel]) -> ()) {
+    fileprivate func findMostPopularPicturesInLocal(completion: @escaping ([PictureModel]) -> ()) {
         
         let sortDescriptor = NSSortDescriptor(key: "rating", ascending: false)
-        coreDataStore?.fetchPicturesEntriesWithPredicate(nil, sortDescriptors: [sortDescriptor], completionBlock: { objects in
+        persistenceLayer?.fetchPicturesEntries(predicate: nil, sortDescriptors: [sortDescriptor], completionBlock: { objects in
             
             var pictureModels: [PictureModel] = []
             for object in objects {
                 
                 let keys = Array(object.entity.attributesByName.keys)
-                let dictionary = object.dictionaryWithValuesForKeys(keys)
+                let dictionary = object.dictionaryWithValues(forKeys: keys)
                 let picture = PictureModel(coreDataDictionary: dictionary)
                 pictureModels.append(picture)
             }
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 completion(pictureModels)
             })
         })
     }
     
-    private func saveMostPopularPictures(pictures: [PictureModel]) {
+    fileprivate func saveMostPopularPictures(pictures: [PictureModel]) {
         
         for picture in pictures {
             
-            coreDataStore?.findPicture(picture.id!, completion: { object in
+            persistenceLayer?.findPicture(id: picture.id!, completion: { object in
                 
                 if object == nil {
                     
-                    let pictureDataModel = self.coreDataStore?.newPictureDataModel()
-                    pictureDataModel?.id = picture.id
+                    let pictureDataModel = self.persistenceLayer?.newPictureDataModel()
+                    pictureDataModel?.id = picture.id as NSNumber?
                     pictureDataModel?.name = picture.name
                     pictureDataModel?.image = picture.image
                     pictureDataModel?.detailText = picture.detailText
                     pictureDataModel?.userName = picture.user?.name
                     pictureDataModel?.userImage = picture.user?.image
-                    pictureDataModel?.rating = picture.rating
+                    pictureDataModel?.rating = picture.rating as NSNumber?
                     pictureDataModel?.camera = picture.camera
-                    pictureDataModel?.latitude = picture.latitude
-                    pictureDataModel?.longitude = picture.longitude
+                    pictureDataModel?.latitude = picture.latitude as NSNumber?
+                    pictureDataModel?.longitude = picture.longitude as NSNumber?
                     
-                    self.coreDataStore?.save()
+                    self.persistenceLayer?.save()
                 }
             })
         }

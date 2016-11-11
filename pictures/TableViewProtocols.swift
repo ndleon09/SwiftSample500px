@@ -17,6 +17,6 @@ protocol ItemProtocol {
 
 protocol DrawerProtocol {
     
-    func cell(forTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell
-    func draw(cell cell: UITableViewCell, withItem: ItemProtocol)
+    func cell(forTableView tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell
+    func draw(cell: UITableViewCell, withItem: ItemProtocol)
 }

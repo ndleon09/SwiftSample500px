@@ -7,30 +7,27 @@
 //
 
 import Foundation
-import UIKit
+import TableViewKit
 import AlamofireImage
 
-class ListDrawer: DrawerProtocol {
+class ListDrawer: CellDrawer {
     
-    func cell(forTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let identifier = "PhotoCellIdentifier"
-        
-        var cell = tableView.dequeueReusableCellWithIdentifier(identifier)
-        if cell == nil {
-            cell = ListTableViewCell(style: .Default, reuseIdentifier: identifier)
-        }
-        
-        return cell!
-    }
+    static var type: CellType = CellType.nib(UINib(nibName: String(describing: ListTableViewCell.self), bundle: nil), ListTableViewCell.self)
     
-    func draw(cell cell: UITableViewCell, withItem item: ItemProtocol) {
+    static func draw(_ cell: UITableViewCell, with item: Any) {
         
         let pictureCell = cell as! ListTableViewCell
         let listItem = item as! ListItem
         
-        pictureCell.pictureImageView?.af_setImageWithURL(listItem.model.imageURL!, placeholderImage: UIImage(named: "placeholder"), filter: nil, imageTransition: .CrossDissolve(0.4))
+        pictureCell.selectionStyle = .none
         pictureCell.nameLabel?.text = listItem.model.imageName
         pictureCell.ratingLabel?.text = String(listItem.model.rating!)
+        
+        guard let url = listItem.model.imageURL else {
+            return
+        }
+        
+        let placeholder = UIImage(named: "placeholder")
+        pictureCell.pictureImageView.af_setImage(withURL: url, placeholderImage: placeholder, filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.5), runImageTransitionIfCached: false, completion: nil)
     }
 }

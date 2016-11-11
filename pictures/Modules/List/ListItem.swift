@@ -7,17 +7,39 @@
 //
 
 import Foundation
+import TableViewKit
 
-class ListItem: ItemProtocol {
+typealias OnSelectionCallBack = (Selectable) -> Void
+
+class ListSection: Section {
     
-    var drawer: DrawerProtocol
-    var model: ListModel
-    var height: Float
+    var items: ObservableArray<Item> = []
     
-    init(model: ListModel) {
+    init(models: [ListModel], presenter: ListPresenterProtocol?) {
         
+        let items = models.map { model -> ListItem in
+            let onSelection: OnSelectionCallBack = { item in
+                guard let id = model.id else { return }
+                presenter?.showPhotoDetail(identifier: id)
+            }
+            let item = ListItem(model: model, onSelection: onSelection)
+            return item
+        }
+        
+        self.items.replace(with: items)
+    }
+}
+
+class ListItem: Item, Selectable {
+    
+    var drawer: CellDrawer.Type = ListDrawer.self
+    var height: Height? = Height.dynamic(375.0)
+    var onSelection: OnSelectionCallBack
+    
+    var model: ListModel
+    
+    init(model: ListModel, onSelection: @escaping OnSelectionCallBack) {
         self.model = model
-        drawer = ListDrawer()
-        height = 44.0
+        self.onSelection = onSelection
     }
 }

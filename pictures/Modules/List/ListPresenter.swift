@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListPresenter: ListInteractorOutputProtocol {
+class ListPresenter: ListPresenterProtocol {
 
     var listInteractor : ListInteractorInputProtocol?
     var listWireFrame : ListWireFrameProtocol?
@@ -19,6 +19,13 @@ class ListPresenter: ListInteractorOutputProtocol {
         listInteractor?.findMostPopularPhotos()
     }
     
+    func showPhotoDetail(identifier: Double) {
+        listWireFrame?.showPhotoDetail(identifier: identifier)
+    }
+}
+
+extension ListPresenter: ListInteractorOutputProtocol {
+    
     func foundMostPopularPhotos(mostPopularPhotos: [PictureModel]) {
         
         listView?.hideLoadingIndicator()
@@ -27,21 +34,17 @@ class ListPresenter: ListInteractorOutputProtocol {
             listView?.showNoContentMessage()
         }
         else {
-            listView?.showMostPopularPhotos(convert(mostPopularPhotos))
+            listView?.showMostPopularPhotos(photos: convert(picturesModel: mostPopularPhotos))
         }
     }
     
-    func showPhotoDetailFromIdentifier(photo: Double) {
-        listWireFrame?.showPhotoDetailFromIdentifier(photo)
-    }
-    
-    private func convert(picturesModel: [PictureModel]) -> [ListModel] {
+    fileprivate func convert(picturesModel: [PictureModel]) -> [ListModel] {
         
         var listModels: [ListModel] = []
         
         for picture in picturesModel {
             
-            let model = ListModel(id: picture.id, imageURL: NSURL(string: picture.image!), imageName: picture.name, rating: picture.rating)
+            let model = ListModel(id: picture.id, imageURL: URL(string: picture.image!), imageName: picture.name, rating: picture.rating)
             listModels.append(model)
         }
         

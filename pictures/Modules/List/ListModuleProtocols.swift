@@ -14,14 +14,14 @@ protocol ListWireFrameProtocol: class {
     
     var rootWireFrame: RootWireFrame? { get }
     
-    func presentListModuleFromWindow(window : UIWindow)
-    func showPhotoDetailFromIdentifier(photo: Double)
+    func presentListModule(window : UIWindow)
+    func showPhotoDetail(identifier: Double)
 }
 
 // ListViewController
 protocol ListViewInterfaceProtocol: class {
     
-    var listPresenter : ListPresenter? { get }
+    var listPresenter : ListPresenterProtocol? { get }
     
     func showLoadingIndicator()
     func hideLoadingIndicator()
@@ -39,11 +39,17 @@ protocol ListInteractorInputProtocol: class {
 }
 
 // Presenter
-protocol ListInteractorOutputProtocol: class {
+protocol ListPresenterProtocol: class {
     
-    weak var listView: ListViewInterfaceProtocol? { get }
-    var listWireFrame: ListWireFrameProtocol? { get }
-    var listInteractor: ListInteractorInputProtocol? { get }
+    var listInteractor : ListInteractorInputProtocol? { get set }
+    var listWireFrame : ListWireFrameProtocol? { get set }
+    var listView : ListViewInterfaceProtocol? { get set }
+    
+    func updateView()
+    func showPhotoDetail(identifier: Double)
+}
+
+protocol ListInteractorOutputProtocol: class {
     
     func foundMostPopularPhotos(mostPopularPhotos : [PictureModel])
 }
@@ -52,7 +58,7 @@ protocol ListInteractorOutputProtocol: class {
 protocol ListDataManagerProtocol: class {
     
     var networkService : NetworkingService? { get }
-    var coreDataStore : CoreDataStore? { get }
+    var persistenceLayer : PersistenceLayerProtocol? { get }
     
-    func findMostPopularPictures(completion: ([PictureModel]) -> ())
+    func findMostPopularPictures(completion: @escaping ([PictureModel]) -> ())
 }

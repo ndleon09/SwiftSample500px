@@ -10,22 +10,20 @@ import Foundation
 
 class DetailDataManager: DetailDataManagerProtocol {
     
-    var coreDataStore : CoreDataStore!
+    var persistenceLayer : PersistenceLayerProtocol?
     
-    func findDetailPhoto(identifier: Double, completion: (PictureModel?) -> ()) {
+    func findDetailPhoto(identifier: Double, completion: @escaping (PictureModel?) -> ()) {
         
-        coreDataStore.findPicture(identifier, completion: { object in
+        persistenceLayer?.findPicture(id: identifier, completion: { object in
             
-            if let managedObject = object {
-                let keys = Array(managedObject.entity.attributesByName.keys)
-                let dictionary = managedObject.dictionaryWithValuesForKeys(keys)
-                let picture = PictureModel(coreDataDictionary: dictionary)
-                completion(picture)
-            }
-            else {
-                completion(nil)
+            guard let managedObject = object else {
+                completion(nil); return
             }
             
+            let keys = Array(managedObject.entity.attributesByName.keys)
+            let dictionary = managedObject.dictionaryWithValues(forKeys: keys)
+            let picture = PictureModel(coreDataDictionary: dictionary)
+            completion(picture)
         })
     }
 }

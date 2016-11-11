@@ -12,10 +12,10 @@ class ListWireFrame: ListWireFrameProtocol {
     
     var rootWireFrame: RootWireFrame?
     
-    func presentListModuleFromWindow(window : UIWindow) {
+    func presentListModule(window : UIWindow) {
         
         let networkService = NetworkingServiceImp()
-        let coreDataStore = CoreDataStore()
+        let persistenceLayer = PersistenceLayer()
         
         let listPresenter = ListPresenter()
         let listDataManager = ListDataManager()
@@ -28,7 +28,7 @@ class ListWireFrame: ListWireFrameProtocol {
         listPresenter.listView = viewController
         
         listDataManager.networkService = networkService
-        listDataManager.coreDataStore = coreDataStore
+        listDataManager.persistenceLayer = persistenceLayer
         
         listInteractor.dataManager = listDataManager
         listInteractor.output = listPresenter
@@ -38,12 +38,12 @@ class ListWireFrame: ListWireFrameProtocol {
         rootWireFrame?.showRootViewController(viewController, inWindow: window)
     }
     
-    func showPhotoDetailFromIdentifier(photo: Double) {
+    func showPhotoDetail(identifier: Double) {
         
         if let rootViewController = rootWireFrame?.rootViewController {
             
             let detailWireFrame = DetailWireFrame()
-            detailWireFrame.presentDetailModuleInNavigationController(rootViewController, photo: photo)
+            detailWireFrame.presentDetailModule(in: rootViewController, photo: identifier)
         }
     }
 }

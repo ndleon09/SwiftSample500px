@@ -7,15 +7,15 @@
 //
 
 import UIKit
+import TableViewKit
 import AlamofireImage
 
 class ListViewController: UIViewController, ListViewInterfaceProtocol {
 
-    var listPresenter : ListPresenter?
-    
-    var mostPopularPhotos : [ListModel] = []
+    var listPresenter : ListPresenterProtocol?
     
     var tableView : UITableView!
+    var tableViewManager: TableViewManager!
     var refreshControl : UIRefreshControl!
     
     // MARK: Life view cycle
@@ -27,15 +27,16 @@ class ListViewController: UIViewController, ListViewInterfaceProtocol {
         title = "500px"
         
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(loadData), forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
         
-        tableView = UITableView(frame: self.view.frame, style: .Plain)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.backgroundColor = UIColor.whiteColor()
-        tableView.separatorStyle = .None
+        tableView = UITableView(frame: self.view.frame, style: .plain)
+        tableView.backgroundColor = UIColor.white
+        tableView.separatorStyle = .none
         tableView.addSubview(refreshControl!)
         view.addSubview(self.tableView!)
+        
+        tableViewManager = TableViewManager(tableView: tableView)
+        tableViewManager.animation = .none
         
         loadData()
     }
@@ -55,26 +56,26 @@ class ListViewController: UIViewController, ListViewInterfaceProtocol {
     }
     
     func showNoContentMessage() {
-        let alertViewController = UIAlertController(title: "Alert", message: "No photos found", preferredStyle: .Alert)
-        alertViewController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-        presentViewController(alertViewController, animated: true, completion: nil)
+        let alertViewController = UIAlertController(title: "Alert", message: "No photos found", preferredStyle: .alert)
+        alertViewController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alertViewController, animated: true, completion: nil)
     }
     
     func showMostPopularPhotos(photos: [ListModel]) {
-        
-        mostPopularPhotos = photos
-        tableView.reloadData()
+        let section = ListSection(models: photos, presenter: listPresenter)
+        tableViewManager.sections.replace(with: [section])
     }
 }
 
+/*
 extension ListViewController: UITableViewDataSource {
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return mostPopularPhotos.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let photo = mostPopularPhotos[indexPath.row]
         let item = ListItem(model: photo)
@@ -88,13 +89,14 @@ extension ListViewController: UITableViewDataSource {
 
 extension ListViewController: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let listModel = mostPopularPhotos[indexPath.row]
-        listPresenter?.showPhotoDetailFromIdentifier(listModel.id!)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let id = mostPopularPhotos[indexPath.row].id else { return }
+        listPresenter?.showPhotoDetail(identifier: id)
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 320.0
     }
 }
+ */
 
