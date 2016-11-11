@@ -14,7 +14,7 @@ class DetailModel : NSObject {
     var descriptionText: String?
     var camera: String?
     var userName: String?
-    var userImage: NSURL?
+    var userImage: URL?
     var latitude: Double?
     var longitude: Double?
 }

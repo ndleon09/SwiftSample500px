@@ -11,19 +11,19 @@ import UIKit
 
 class DetailLocationDrawer: DrawerProtocol {
     
-    func cell(forTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func cell(forTableView tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell {
         
         let cellIdentifier = "DetailLocationCellIdentifier"
         
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
         if cell == nil {
-            cell = DetailLocationCell(style: .Default, reuseIdentifier: cellIdentifier)
+            cell = DetailLocationCell(style: .default, reuseIdentifier: cellIdentifier)
         }
         
         return cell!
     }
     
-    func draw(cell cell: UITableViewCell, withItem item: ItemProtocol) {
+    func draw(cell: UITableViewCell, withItem item: ItemProtocol) {
         
         let detailLocationItem = item as! DetailLocationItem
         let detailLocationCell = cell as! DetailLocationCell

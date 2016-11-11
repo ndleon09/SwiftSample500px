@@ -11,7 +11,7 @@ import UIKit
 
 protocol DetailWireFrameProtocol: class {
     
-    func presentDetailModuleInNavigationController(navigationController: UINavigationController, photo: Double)
+    func presentDetailModule(in navigationController: UINavigationController, photo: Double)
 }
 
 protocol DetailViewProtocol: class {
@@ -22,7 +22,7 @@ protocol DetailViewProtocol: class {
 
 protocol DetailDataManagerProtocol: class {
     
-    func findDetailPhoto(identifier: Double, completion: (PictureModel?) -> ())
+    func findDetailPhoto(identifier: Double, completion: @escaping (PictureModel?) -> ())
 }
 
 protocol DetailInteractorInputProtocol: class {

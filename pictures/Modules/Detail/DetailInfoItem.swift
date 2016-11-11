@@ -12,12 +12,12 @@ class DetailInfoItem: ItemProtocol {
     
     var drawer: DrawerProtocol = DetailInfoDrawer()
     
-    var image: NSURL?
+    var image: URL?
     var title: String?
     var subtitle: String?
     var height: Float
     
-    init(image: NSURL?, title: String?, subtitle: String?) {
+    init(image: URL?, title: String?, subtitle: String?) {
         
         self.title = title
         self.subtitle = subtitle

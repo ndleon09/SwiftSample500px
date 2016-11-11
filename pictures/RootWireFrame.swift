@@ -13,17 +13,17 @@ class RootWireFrame {
     
     var rootViewController: UINavigationController!
     
-    func installRootViewControllerIntoWindow(window : UIWindow) {
+    func installRootViewControllerIntoWindow(_ window : UIWindow) {
         
         let listWireFrame = ListWireFrame()
         listWireFrame.rootWireFrame = self
-        listWireFrame.presentListModuleFromWindow(window)
+        listWireFrame.presentListModule(window: window)
     }
 
-    func showRootViewController(rootViewController : UIViewController, inWindow : UIWindow) {
+    func showRootViewController(_ rootViewController : UIViewController, inWindow : UIWindow) {
         
         let navigationController = UINavigationController(rootViewController: rootViewController)
-        inWindow.backgroundColor = UIColor.whiteColor()
+        inWindow.backgroundColor = UIColor.white
         inWindow.rootViewController = navigationController
         inWindow.makeKeyAndVisible()
         
