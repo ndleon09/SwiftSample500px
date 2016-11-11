@@ -26,6 +26,7 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = UIColor.white
+        tableView.separatorStyle = .none
         view.addSubview(self.tableView)
     }
     
