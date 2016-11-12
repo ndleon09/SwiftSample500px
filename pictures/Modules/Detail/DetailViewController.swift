@@ -11,8 +11,8 @@ import TableViewKit
 
 class DetailViewController: UIViewController, DetailViewProtocol {
 
-    var detailPresenter : DetailPresenter!
-    var tableViewManager: TableViewManager!
+    var detailPresenter : DetailPresenterProtocol?
+    var tableViewManager: TableViewManager?
 
     override func viewDidLoad() {
         
@@ -26,7 +26,7 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         view.addSubview(tableView)
         
         tableViewManager = TableViewManager(tableView: tableView)
-        tableViewManager.animation = .none
+        tableViewManager?.animation = .none
     }
     
     func showNotFoundMessage() {
@@ -39,6 +39,6 @@ class DetailViewController: UIViewController, DetailViewProtocol {
     func showDetailPicture(detailModel: DetailModel) {
         
         let section = DetailViewSection(model: detailModel)
-        tableViewManager.sections.replace(with: [section])
+        tableViewManager?.sections.replace(with: [section])
     }
 }

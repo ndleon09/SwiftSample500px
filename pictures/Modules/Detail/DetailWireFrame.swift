@@ -20,12 +20,12 @@ class DetailWireFrame: DetailWireFrameProtocol {
         
         detailDataManager.persistenceLayer = persistenceLayer
         
-        detailInteractor.detailPresenter = detailPresenter
-        detailInteractor.detailDataManager = detailDataManager
+        detailInteractor.output = detailPresenter
+        detailInteractor.dataManager = detailDataManager
         
-        detailPresenter.detailWireFrame = self
-        detailPresenter.detailInteractor = detailInteractor
-        detailPresenter.detailView = viewController
+        detailPresenter.wireFrame = self
+        detailPresenter.interactor = detailInteractor
+        detailPresenter.view = viewController
         detailPresenter.loadDetailFromIdentifier(identifier: photo)
         
         viewController.detailPresenter = detailPresenter
