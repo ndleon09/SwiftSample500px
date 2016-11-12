@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class DetailLocationCell: UITableViewCell {
+class LocationCell: UITableViewCell {
 
     fileprivate var mapView: MKMapView!
     
@@ -42,7 +42,7 @@ class DetailLocationCell: UITableViewCell {
         contentView.addConstraint(mapViewHeight)
     }
     
-    func setLocation(_ latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+    func setLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
         
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
