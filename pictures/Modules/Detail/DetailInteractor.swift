@@ -10,15 +10,15 @@ import Foundation
 
 class DetailInteractor: DetailInteractorInputProtocol {
 
-    var detailPresenter : DetailInteractorOutputProtocol!
-    var detailDataManager : DetailDataManagerProtocol!
+    var output : DetailInteractorOutputProtocol?
+    var dataManager : DetailDataManagerProtocol?
     
     func findDetailPhoto(identifier: Double) {
         
-        detailDataManager.findDetailPhoto(identifier: identifier, completion: { picture in
+        dataManager?.findDetailPhoto(identifier: identifier, completion: { picture in
             
             let detailModel = self.detailModelFromPictureModel(picture)
-            self.detailPresenter.foundDetailPhoto(detailModel: detailModel)
+            self.output?.foundDetailPhoto(detailModel: detailModel)
         })
     }
     

@@ -16,16 +16,32 @@ protocol DetailWireFrameProtocol: class {
 
 protocol DetailViewProtocol: class {
     
+    var detailPresenter : DetailPresenterProtocol? { get set }
+    
     func showNotFoundMessage()
     func showDetailPicture(detailModel: DetailModel)
 }
 
+protocol DetailPresenterProtocol: class {
+    
+    var wireFrame : DetailWireFrameProtocol? { get set }
+    var interactor : DetailInteractorInputProtocol? { get set }
+    var view : DetailViewProtocol? { get set }
+    
+    func loadDetailFromIdentifier(identifier: Double)
+}
+
 protocol DetailDataManagerProtocol: class {
+    
+    var persistenceLayer : PersistenceLayerProtocol? { get set }
     
     func findDetailPhoto(identifier: Double, completion: @escaping (PictureModel?) -> ())
 }
 
 protocol DetailInteractorInputProtocol: class {
+    
+    var output : DetailInteractorOutputProtocol? { get set }
+    var dataManager : DetailDataManagerProtocol? { get set }
     
     func findDetailPhoto(identifier: Double)
 }

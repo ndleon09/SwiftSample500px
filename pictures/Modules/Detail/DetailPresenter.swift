@@ -8,24 +8,26 @@
 
 import UIKit
 
-class DetailPresenter: DetailInteractorOutputProtocol {
-
-    var detailWireFrame : DetailWireFrameProtocol!
-    var detailInteractor : DetailInteractorInputProtocol!
-    var detailView : DetailViewProtocol!
+class DetailPresenter: DetailPresenterProtocol {
+    
+    var wireFrame: DetailWireFrameProtocol?
+    var interactor: DetailInteractorInputProtocol?
+    var view: DetailViewProtocol?
     
     func loadDetailFromIdentifier(identifier: Double) {
-        
-        detailInteractor.findDetailPhoto(identifier: identifier)
+        interactor?.findDetailPhoto(identifier: identifier)
     }
+}
+
+extension DetailPresenter: DetailInteractorOutputProtocol {
     
     func foundDetailPhoto(detailModel: DetailModel?) {
         
         if let model = detailModel {
-            detailView.showDetailPicture(detailModel: model)
+            view?.showDetailPicture(detailModel: model)
         }
         else {
-            detailView.showNotFoundMessage()
+            view?.showNotFoundMessage()
         }
     }
 }
