@@ -12,24 +12,25 @@ class DetailWireFrame: DetailWireFrameProtocol {
     
     func presentDetailModule(in navigationController: UINavigationController, photo: Double) {
         
-        let detailPresenter = DetailPresenter()
-        let detailInteractor = DetailInteractor()
-        let detailDataManager = DetailDataManager()
-        let persistenceLayer = PersistenceLayer()
-        let viewController = DetailViewController()
+        let presenter: DetailPresenterProtocol? = BasicServiceLocator.shared.getService()
+        let interactor: DetailInteractorInputProtocol? = BasicServiceLocator.shared.getService()
+        let dataManager: DetailDataManagerProtocol? = BasicServiceLocator.shared.getService()
+        let persistenceLayer: PersistenceLayerProtocol? = BasicServiceLocator.shared.getService()
         
-        detailDataManager.persistenceLayer = persistenceLayer
+        let view: DetailViewProtocol? = BasicServiceLocator.shared.getService()
+        view?.detailPresenter = presenter
         
-        detailInteractor.output = detailPresenter
-        detailInteractor.dataManager = detailDataManager
+        dataManager?.persistenceLayer = persistenceLayer
         
-        detailPresenter.wireFrame = self
-        detailPresenter.interactor = detailInteractor
-        detailPresenter.view = viewController
-        detailPresenter.loadDetailFromIdentifier(identifier: photo)
+        interactor?.output = BasicServiceLocator.shared.getService()
+        interactor?.dataManager = dataManager
         
-        viewController.detailPresenter = detailPresenter
+        presenter?.wireFrame = self
+        presenter?.interactor = interactor
+        presenter?.view = view
+        presenter?.loadDetailFromIdentifier(identifier: photo)
         
+        guard let viewController = view as? UIViewController else { return }
         navigationController.pushViewController(viewController, animated: true)
     }
 }

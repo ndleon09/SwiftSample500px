@@ -44,15 +44,24 @@ extension BasicServiceLocator {
         self.registry.removeAll()
         
         // List
-        let presenter = ListPresenter()
+        let listPresenter = ListPresenter()
         
         add(service: ListViewController() as ListViewInterfaceProtocol)
         add(service: ListWireFrame() as ListWireFrameProtocol)
-        add(service: presenter as ListPresenterProtocol)
-        add(service: presenter as ListInteractorOutputProtocol)
+        add(service: listPresenter as ListPresenterProtocol)
+        add(service: listPresenter as ListInteractorOutputProtocol)
         add(service: ListInteractor() as ListInteractorInputProtocol)
         add(service: ListDataManager() as ListDataManagerProtocol)
         add(service: NetworkingService() as NetworkingServiceProtocol)
         add(service: PersistenceLayer() as PersistenceLayerProtocol)
+        
+        // Detail
+        let detailPresenter = DetailPresenter()
+        
+        add(service: DetailViewController() as DetailViewProtocol)
+        add(service: detailPresenter as DetailPresenterProtocol)
+        add(service: detailPresenter as DetailInteractorOutputProtocol)
+        add(service: DetailInteractor() as DetailInteractorInputProtocol)
+        add(service: DetailDataManager() as DetailDataManagerProtocol)
     }
 }
