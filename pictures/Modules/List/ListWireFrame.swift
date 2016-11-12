@@ -14,27 +14,24 @@ class ListWireFrame: ListWireFrameProtocol {
     
     func presentListModule(window : UIWindow) {
         
-        let networkService = NetworkingServiceImp()
-        let persistenceLayer = PersistenceLayer()
+        let presenter: ListPresenterProtocol? = BasicServiceLocator.shared.getService()
+        let interactor: ListInteractorInputProtocol? = BasicServiceLocator.shared.getService()
         
-        let listPresenter = ListPresenter()
-        let listDataManager = ListDataManager()
-        let listInteractor = ListInteractor()
+        let dataManager: ListDataManagerProtocol? = BasicServiceLocator.shared.getService()
+        dataManager?.networkService = BasicServiceLocator.shared.getService()
+        dataManager?.persistenceLayer = BasicServiceLocator.shared.getService()
         
-        let viewController = ListViewController()
+        let view: ListViewInterfaceProtocol? = BasicServiceLocator.shared.getService()
+        view?.listPresenter = presenter
         
-        listPresenter.listInteractor = listInteractor
-        listPresenter.listWireFrame = self
-        listPresenter.listView = viewController
+        presenter?.listInteractor = interactor
+        presenter?.listWireFrame = self
+        presenter?.listView = view
         
-        listDataManager.networkService = networkService
-        listDataManager.persistenceLayer = persistenceLayer
+        interactor?.dataManager = dataManager
+        interactor?.output = BasicServiceLocator.shared.getService()
         
-        listInteractor.dataManager = listDataManager
-        listInteractor.output = listPresenter
-        
-        viewController.listPresenter = listPresenter
-        
+        guard let viewController = view as? UIViewController else { return }
         rootWireFrame?.show(rootViewController: viewController, inWindow: window)
     }
     

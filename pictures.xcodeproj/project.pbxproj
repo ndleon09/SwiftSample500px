@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E906807C060BBF66AE67F7C /* Pods_pictures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF180CC3762DB9593B5C9EAE /* Pods_pictures.framework */; };
+		521D2B281DD79C8C00AA0B4D /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521D2B271DD79C8C00AA0B4D /* ServiceLocator.swift */; };
 		52262EC31BEAA75B00BC8A16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EC21BEAA75B00BC8A16 /* AppDelegate.swift */; };
 		52262ECA1BEAA75B00BC8A16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52262EC91BEAA75B00BC8A16 /* Assets.xcassets */; };
 		52262ECD1BEAA75B00BC8A16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52262ECB1BEAA75B00BC8A16 /* LaunchScreen.storyboard */; };
@@ -56,6 +57,7 @@
 
 /* Begin PBXFileReference section */
 		45F3D604DE0BBE3930306ACD /* Pods-pictures.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pictures.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pictures/Pods-pictures.debug.xcconfig"; sourceTree = "<group>"; };
+		521D2B271DD79C8C00AA0B4D /* ServiceLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 		52262EBF1BEAA75B00BC8A16 /* pictures.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pictures.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52262EC21BEAA75B00BC8A16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52262EC91BEAA75B00BC8A16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				52262ED61BEAA90C00BC8A16 /* Modules */,
 				52262EC21BEAA75B00BC8A16 /* AppDelegate.swift */,
 				52262EEC1BEAB18800BC8A16 /* RootWireFrame.swift */,
+				521D2B271DD79C8C00AA0B4D /* ServiceLocator.swift */,
 				52262EC91BEAA75B00BC8A16 /* Assets.xcassets */,
 				52262ECB1BEAA75B00BC8A16 /* LaunchScreen.storyboard */,
 				52262ECE1BEAA75B00BC8A16 /* Info.plist */,
@@ -543,6 +546,7 @@
 				522E8E771BEB707A0018ACE9 /* ListTableViewCell.swift in Sources */,
 				525D81621D21BDFC00281175 /* LocationItem.swift in Sources */,
 				52767BFF1DD6FE8C006CEA74 /* DetailViewSection.swift in Sources */,
+				521D2B281DD79C8C00AA0B4D /* ServiceLocator.swift in Sources */,
 				52262EF61BEAC2C100BC8A16 /* ListDataManager.swift in Sources */,
 				522E8E8F1BEBC3990018ACE9 /* PicturesDataModel.xcdatamodeld in Sources */,
 				52262EF01BEAC00800BC8A16 /* PersistenceLayer.swift in Sources */,

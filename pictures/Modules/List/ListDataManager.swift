@@ -10,7 +10,7 @@ import Foundation
 
 class ListDataManager: ListDataManagerProtocol {
 
-    var networkService : NetworkingService?
+    var networkService : NetworkingServiceProtocol?
     var persistenceLayer : PersistenceLayerProtocol?
     
     func findMostPopularPictures(completion: @escaping ([PictureModel]) -> ()) {
@@ -21,12 +21,7 @@ class ListDataManager: ListDataManagerProtocol {
         
         networkService?.findMostPopularPictures { photos in
             
-            var pictureModels = [PictureModel]()
-            for photoDictionary in photos {
-                let photo = PictureModel(dictionary: photoDictionary as! NSDictionary)
-                pictureModels.append(photo)
-            }
-            
+            let pictureModels = photos.map { PictureModel(dictionary: $0 as! NSDictionary) }
             self.saveMostPopularPictures(pictures: pictureModels)
             self.findMostPopularPicturesInLocal(completion: completion)
         }
@@ -37,13 +32,10 @@ class ListDataManager: ListDataManagerProtocol {
         let sortDescriptor = NSSortDescriptor(key: "rating", ascending: false)
         persistenceLayer?.fetchPicturesEntries(predicate: nil, sortDescriptors: [sortDescriptor], completionBlock: { objects in
             
-            var pictureModels: [PictureModel] = []
-            for object in objects {
-                
+            let pictureModels: [PictureModel] = objects.map { object in
                 let keys = Array(object.entity.attributesByName.keys)
                 let dictionary = object.dictionaryWithValues(forKeys: keys)
-                let picture = PictureModel(coreDataDictionary: dictionary)
-                pictureModels.append(picture)
+                return PictureModel(coreDataDictionary: dictionary)
             }
             
             DispatchQueue.main.async(execute: {
