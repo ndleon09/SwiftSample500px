@@ -35,7 +35,7 @@ class ListWireFrame: ListWireFrameProtocol {
         
         viewController.listPresenter = listPresenter
         
-        rootWireFrame?.showRootViewController(viewController, inWindow: window)
+        rootWireFrame?.show(rootViewController: viewController, inWindow: window)
     }
     
     func showPhotoDetail(identifier: Double) {

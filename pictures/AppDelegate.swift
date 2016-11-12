@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
         
-        RootWireFrame().installRootViewControllerIntoWindow(window!)
+        RootWireFrame().installRootViewController(in: window!)
         
         return true
     }
