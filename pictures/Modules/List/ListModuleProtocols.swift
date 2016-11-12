@@ -12,7 +12,7 @@ import UIKit
 // Wireframe
 protocol ListWireFrameProtocol: class {
     
-    var rootWireFrame: RootWireFrame? { get }
+    var rootWireFrame: RootWireFrame? { get set }
     
     func presentListModule(window : UIWindow)
     func showPhotoDetail(identifier: Double)
@@ -21,7 +21,7 @@ protocol ListWireFrameProtocol: class {
 // ListViewController
 protocol ListViewInterfaceProtocol: class {
     
-    var listPresenter : ListPresenterProtocol? { get }
+    var listPresenter : ListPresenterProtocol? { get set }
     
     func showLoadingIndicator()
     func hideLoadingIndicator()
@@ -32,8 +32,8 @@ protocol ListViewInterfaceProtocol: class {
 // Interactor
 protocol ListInteractorInputProtocol: class {
     
-    var dataManager : ListDataManagerProtocol? { get }
-    weak var output : ListInteractorOutputProtocol? { get }
+    var dataManager : ListDataManagerProtocol? { get set }
+    weak var output : ListInteractorOutputProtocol? { get set }
     
     func findMostPopularPhotos()
 }
@@ -57,8 +57,8 @@ protocol ListInteractorOutputProtocol: class {
 // DataManager
 protocol ListDataManagerProtocol: class {
     
-    var networkService : NetworkingService? { get }
-    var persistenceLayer : PersistenceLayerProtocol? { get }
+    var networkService : NetworkingServiceProtocol? { get set }
+    var persistenceLayer : PersistenceLayerProtocol? { get set }
     
     func findMostPopularPictures(completion: @escaping ([PictureModel]) -> ())
 }

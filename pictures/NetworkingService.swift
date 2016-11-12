@@ -49,12 +49,11 @@ extension Dictionary {
     
 }
 
-protocol NetworkingService {
-    
+protocol NetworkingServiceProtocol {
     func findMostPopularPictures(completion: @escaping ([AnyObject]) -> ())
 }
 
-class NetworkingServiceImp: NetworkingService {
+class NetworkingService: NetworkingServiceProtocol {
 
     fileprivate var baseURL = "https://api.500px.com/v1"
     fileprivate let consumerKey = "FMEvCvHM8Ask8kF1BzJa9yEvznnmpHwYxME3S3dh"
