@@ -61,7 +61,7 @@ class NetworkingServiceImp: NetworkingService {
     
     func findMostPopularPictures(completion: @escaping ([AnyObject]) -> ()) {
         
-        let parameters : [String:String] = ["feature": "popular", "sort": "rating", "sort_direction": "desc", "image_size": "440", "consumer_key": consumerKey]
+        let parameters : [String: String] = ["feature": "popular", "sort": "rating", "sort_direction": "desc", "image_size": "440", "consumer_key": consumerKey]
         let url = URL(string: "\(self.baseURL)/photos?\(parameters.stringFromHttpParameters())")
         
         let task = URLSession.shared.dataTask(with: url!, completionHandler: { data, response, error in

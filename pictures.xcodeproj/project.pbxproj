@@ -34,7 +34,6 @@
 		52335BDB1D1F07D200435E3F /* ListModuleProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52335BDA1D1F07D200435E3F /* ListModuleProtocols.swift */; };
 		52335BDE1D1F0F2F00435E3F /* PictureDataModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52335BDC1D1F0F2F00435E3F /* PictureDataModel+CoreDataProperties.swift */; };
 		52335BDF1D1F0F2F00435E3F /* PictureDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52335BDD1D1F0F2F00435E3F /* PictureDataModel.swift */; };
-		52335BE21D1F302D00435E3F /* TableViewProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52335BE11D1F302D00435E3F /* TableViewProtocols.swift */; };
 		52335BE41D1F30BA00435E3F /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52335BE31D1F30BA00435E3F /* ListItem.swift */; };
 		52335BE61D1F30DD00435E3F /* ListDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52335BE51D1F30DD00435E3F /* ListDrawer.swift */; };
 		525D81601D21BB1400281175 /* PictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525D815F1D21BB1400281175 /* PictureModel.swift */; };
@@ -87,7 +86,6 @@
 		52335BDA1D1F07D200435E3F /* ListModuleProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListModuleProtocols.swift; path = Modules/List/ListModuleProtocols.swift; sourceTree = "<group>"; };
 		52335BDC1D1F0F2F00435E3F /* PictureDataModel+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PictureDataModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		52335BDD1D1F0F2F00435E3F /* PictureDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureDataModel.swift; sourceTree = "<group>"; };
-		52335BE11D1F302D00435E3F /* TableViewProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewProtocols.swift; sourceTree = "<group>"; };
 		52335BE31D1F30BA00435E3F /* ListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListItem.swift; path = Modules/List/ListItem.swift; sourceTree = "<group>"; };
 		52335BE51D1F30DD00435E3F /* ListDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListDrawer.swift; path = Modules/List/ListDrawer.swift; sourceTree = "<group>"; };
 		525D815F1D21BB1400281175 /* PictureModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureModel.swift; sourceTree = "<group>"; };
@@ -351,7 +349,6 @@
 		52335BE01D1F2E4E00435E3F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				52335BE11D1F302D00435E3F /* TableViewProtocols.swift */,
 				52767BFA1DD6FC3E006CEA74 /* LabelItem.swift */,
 				52767C001DD701A7006CEA74 /* LabelCell.xib */,
 			);
@@ -541,7 +538,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				52335BDB1D1F07D200435E3F /* ListModuleProtocols.swift in Sources */,
-				52335BE21D1F302D00435E3F /* TableViewProtocols.swift in Sources */,
 				52262EDC1BEAAA0E00BC8A16 /* ListWireFrame.swift in Sources */,
 				522E8E821BEBB1390018ACE9 /* DetailWireFrame.swift in Sources */,
 				522E8E771BEB707A0018ACE9 /* ListTableViewCell.swift in Sources */,
