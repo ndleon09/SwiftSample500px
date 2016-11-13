@@ -17,6 +17,7 @@ protocol DetailWireFrameProtocol: class {
 protocol DetailViewProtocol: class {
     
     var detailPresenter : DetailPresenterProtocol? { get set }
+    var photo: Double? { get set }
     
     func showNotFoundMessage()
     func showDetailPicture(detailModel: DetailModel)

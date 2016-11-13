@@ -11,6 +11,69 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    let container: ServiceLocator = {
+        let container = Container()
+        
+        let networkService: NetworkingServiceProtocol = NetworkingService()
+        container.add(service: networkService)
+        
+        let persistenceLayer: PersistenceLayerProtocol = PersistenceLayer()
+        container.add(service: persistenceLayer)
+        
+        // Register ListModule components
+        let listWireFrame: ListWireFrameProtocol = ListWireFrame(container: container)
+        container.add(service: listWireFrame)
+        
+        let listDataManager: ListDataManagerProtocol = ListDataManager()
+        listDataManager.networkService = networkService
+        listDataManager.persistenceLayer = persistenceLayer
+        container.add(service: listDataManager)
+        
+        let listInteractor: ListInteractorInputProtocol = ListInteractor()
+        listInteractor.dataManager = listDataManager
+        container.add(service: listInteractor)
+        
+        let listPresenter: ListPresenterProtocol = ListPresenter()
+        listPresenter.listWireFrame = listWireFrame
+        listPresenter.listInteractor = listInteractor
+        container.add(service: listPresenter)
+        
+        let listView: ListViewInterfaceProtocol = ListViewController()
+        listView.listPresenter = listPresenter
+        container.add(service: listView)
+        
+        // Cyrcle dependencies
+        listPresenter.listView = listView
+        listInteractor.output = listPresenter as? ListInteractorOutputProtocol
+        
+        // Register DetailModule components
+        let detailWireframe = DetailWireFrame(container: container)
+        container.add(service: detailWireframe)
+        
+        let detailDataManager: DetailDataManagerProtocol = DetailDataManager()
+        detailDataManager.persistenceLayer = persistenceLayer
+        container.add(service: detailDataManager)
+        
+        let detailInteractor: DetailInteractorInputProtocol = DetailInteractor()
+        detailInteractor.dataManager = detailDataManager
+        container.add(service: detailInteractor)
+        
+        let detailPresenter: DetailPresenterProtocol = DetailPresenter()
+        detailPresenter.wireFrame = detailWireframe
+        detailPresenter.interactor = detailInteractor
+        container.add(service: detailPresenter)
+        
+        let detailView: DetailViewProtocol = DetailViewController()
+        detailView.detailPresenter = detailPresenter
+        container.add(service: detailView)
+        
+        // Cyrcle dependencies
+        detailInteractor.output = detailPresenter as? DetailInteractorOutputProtocol
+        detailPresenter.view = detailView
+        
+        return container
+    }()
+    
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -18,7 +81,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
         
-        RootWireFrame().installRootViewController(in: window!)
+        let rootWireFrame = RootWireFrame(container: container)
+        rootWireFrame.installRootViewController(in: window!)
         
         return true
     }

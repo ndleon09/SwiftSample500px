@@ -11,22 +11,21 @@ import UIKit
 
 class RootWireFrame {
     
-    var rootViewController: UINavigationController!
+    let container: ServiceLocator
+    
+    init(container: ServiceLocator) {
+        self.container = container
+    }
     
     func installRootViewController(in window : UIWindow) {
         
-        let listWireFrame = ListWireFrame()
-        listWireFrame.rootWireFrame = self
-        listWireFrame.presentListModule(window: window)
-    }
-
-    func show(rootViewController : UIViewController, inWindow : UIWindow) {
+        let navigationController = UINavigationController()
+        window.backgroundColor = UIColor.white
+        window.rootViewController = navigationController
         
-        let navigationController = UINavigationController(rootViewController: rootViewController)
-        inWindow.backgroundColor = UIColor.white
-        inWindow.rootViewController = navigationController
-        inWindow.makeKeyAndVisible()
+        let listWireFrame: ListWireFrameProtocol? = container.getService()
+        listWireFrame?.showList(in: navigationController)
         
-        self.rootViewController = navigationController
+        window.makeKeyAndVisible()
     }
 }

@@ -12,6 +12,7 @@ import TableViewKit
 class DetailViewController: UIViewController, DetailViewProtocol {
 
     var detailPresenter : DetailPresenterProtocol?
+    var photo: Double?
     var tableViewManager: TableViewManager?
 
     override func viewDidLoad() {
@@ -27,6 +28,9 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         
         tableViewManager = TableViewManager(tableView: tableView)
         tableViewManager?.animation = .none
+        
+        guard let photo = photo else { return }
+        detailPresenter?.loadDetailFromIdentifier(identifier: photo)
     }
     
     func showNotFoundMessage() {
