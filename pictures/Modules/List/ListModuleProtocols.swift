@@ -12,9 +12,9 @@ import UIKit
 // Wireframe
 protocol ListWireFrameProtocol: class {
     
-    var rootWireFrame: RootWireFrame? { get set }
+    var container: ServiceLocator { get set }
     
-    func presentListModule(window : UIWindow)
+    func showList(in navigationController : UINavigationController)
     func showPhotoDetail(identifier: Double)
 }
 
