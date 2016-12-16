@@ -42,4 +42,8 @@ class ListItem: Item, Selectable {
         self.model = model
         self.onSelection = onSelection
     }
+    
+    func didSelect() {
+        onSelection(self)
+    }
 }
