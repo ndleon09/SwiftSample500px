@@ -6,4 +6,5 @@ target 'pictures' do
     pod 'Alamofire', '~> 4.0'
     pod 'AlamofireImage', '~> 3.1'
     pod 'TableViewKit', '~> 0.9'
+    pod 'LayoutKit', '~> 4.0'
 end
