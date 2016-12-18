@@ -25,7 +25,7 @@ class LocationItem: Item {
 
 class LocationDrawer: CellDrawer {
     
-    static var type: CellType = CellType.class(LocationCell.self)
+    static var type: CellType = CellType.nib(UINib(nibName: String(describing: LocationCell.self), bundle: nil), LocationCell.self)
     
     static func draw(_ cell: UITableViewCell, with item: Any) {
         

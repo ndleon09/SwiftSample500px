@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E906807C060BBF66AE67F7C /* Pods_pictures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF180CC3762DB9593B5C9EAE /* Pods_pictures.framework */; };
+		520BE10C1E0731910025E89D /* LocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 520BE10B1E0731910025E89D /* LocationCell.xib */; };
 		521D2B281DD79C8C00AA0B4D /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521D2B271DD79C8C00AA0B4D /* ServiceLocator.swift */; };
 		52262EC31BEAA75B00BC8A16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52262EC21BEAA75B00BC8A16 /* AppDelegate.swift */; };
 		52262ECA1BEAA75B00BC8A16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52262EC91BEAA75B00BC8A16 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 
 /* Begin PBXFileReference section */
 		45F3D604DE0BBE3930306ACD /* Pods-pictures.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pictures.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pictures/Pods-pictures.debug.xcconfig"; sourceTree = "<group>"; };
+		520BE10B1E0731910025E89D /* LocationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LocationCell.xib; path = Modules/Detail/LocationCell.xib; sourceTree = "<group>"; };
 		521D2B271DD79C8C00AA0B4D /* ServiceLocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 		52262EBF1BEAA75B00BC8A16 /* pictures.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pictures.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52262EC21BEAA75B00BC8A16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				522E8E981BEC9BC20018ACE9 /* LocationCell.swift */,
+				520BE10B1E0731910025E89D /* LocationCell.xib */,
 				525D81611D21BDFC00281175 /* LocationItem.swift */,
 			);
 			name = LocationCell;
@@ -471,6 +474,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				520BE10C1E0731910025E89D /* LocationCell.xib in Resources */,
 				52262ECD1BEAA75B00BC8A16 /* LaunchScreen.storyboard in Resources */,
 				52767BF91DD674CB006CEA74 /* ListTableViewCell.xib in Resources */,
 				52767C011DD701A7006CEA74 /* LabelCell.xib in Resources */,
