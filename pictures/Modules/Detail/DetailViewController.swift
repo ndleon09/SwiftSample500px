@@ -28,6 +28,15 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         
         tableViewManager = TableViewManager(tableView: tableView)
         tableViewManager?.animation = .none
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        loadDetailPhoto()
+    }
+    
+    private func loadDetailPhoto() {
         
         guard let photo = photo else { return }
         detailPresenter?.loadDetailFromIdentifier(identifier: photo)
